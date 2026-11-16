@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#f4efe6">
+<title>KOMA 珈琲 — 一杯のために、豆を選ぶ。</title>
+<style>
+html,body{background:#f4efe6}
+*{box-sizing:border-box}
+body{margin:0;color:#1e1a15;font:15px/1.75 "Hiragino Sans","Yu Gothic",-apple-system,sans-serif}
+a{color:inherit;text-decoration:none}button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+:focus-visible{outline:2px solid #8b5e34;outline-offset:3px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 34px}
+header{border-bottom:1px solid #ddd3c4;background:#f4efe6ee;position:sticky;top:0;z-index:20;backdrop-filter:blur(8px)}
+header .wrap{display:flex;align-items:center;height:68px;gap:26px}
+.brand{font-size:19px;font-weight:700;letter-spacing:.04em;display:flex;align-items:center;gap:8px}
+.brand i{width:16px;height:16px;border-radius:50%;background:#3c2a1c;display:block;position:relative}
+.brand i:after{content:"";position:absolute;inset:4px;border-radius:50%;background:#c98a4b}
+nav{display:flex;gap:20px;font-size:12px;color:#6b6155}
+nav a:hover{color:#1e1a15}
+.right{margin-left:auto;display:flex;gap:12px;align-items:center;font-size:12px}
+.btn{background:#3c2a1c;color:#f6f1e7;padding:9px 16px;border-radius:3px;font-size:12px;transition:background .16s ease}
+.btn:hover{background:#583f2a}
+.btn.line{background:transparent;color:#3c2a1c;border:1px solid #cbbda8}
+
+.hero{padding:52px 0 0}
+.hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:42px;align-items:end}
+.eyebrow{font:10px/1 ui-monospace,Menlo,monospace;letter-spacing:.2em;color:#8b5e34}
+h1{font-size:clamp(34px,4.6vw,58px);line-height:1.22;letter-spacing:-.03em;margin:16px 0 18px;font-weight:700}
+h1 span{color:#8b5e34}
+.lede{color:#5f564a;font-size:13.5px;max-width:380px;line-height:1.95}
+.cta{display:flex;gap:10px;margin-top:24px;flex-wrap:wrap}
+.cup{aspect-ratio:1/1;position:relative;display:grid;place-items:center}
+.cup svg{width:100%;height:auto;max-width:360px}
+
+section.menu{padding:56px 0 62px}
+.m-head{display:flex;justify-content:space-between;align-items:end;gap:20px;border-top:1px solid #1e1a15;padding-top:14px;flex-wrap:wrap}
+.h2{font-size:clamp(22px,2.8vw,30px);margin:0;letter-spacing:-.02em}
+.sub{font-size:12px;color:#6b6155;margin:6px 0 0}
+.roast{display:flex;gap:6px}
+.r{border:1px solid #cbbda8;border-radius:999px;padding:6px 13px;font-size:11px;color:#6b6155;transition:background .15s ease,color .15s ease}
+.r[aria-pressed=true]{background:#3c2a1c;border-color:#3c2a1c;color:#f6f1e7}
+.beans{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#ddd3c4;border:1px solid #ddd3c4;margin-top:22px}
+.bean{background:#faf6ef;padding:20px;display:flex;flex-direction:column;gap:8px;min-height:198px}
+.bean[hidden]{display:none}
+.bean .k{font:10px/1 ui-monospace,Menlo,monospace;letter-spacing:.12em;color:#8b5e34}
+.bean h3{font-size:16px;margin:0;line-height:1.5}
+.bean p{font-size:12px;color:#5f564a;margin:0;line-height:1.85}
+.bean .foot{margin-top:auto;font-size:11px;color:#8b8272;display:flex;justify-content:space-between}
+.bean .bar{height:4px;background:#e7ddcd;display:flex;overflow:hidden}
+.bean .bar i{display:block;height:100%;background:#3c2a1c}
+.empty{grid-column:1/-1;padding:22px;background:#faf6ef;font-size:12px;color:#8b8272;border:1px dashed #cbbda8}
+.note{font-size:10.5px;color:#8b8272;margin-top:14px}
+
+.two{padding:42px 0 56px;border-top:1px solid #ddd3c4}
+.two-grid{display:grid;grid-template-columns:1fr 1fr;gap:34px}
+.two h3{font-size:15px;margin:0 0 10px;letter-spacing:-.01em}
+.hours{list-style:none;margin:0;padding:0;font-size:12.5px;color:#5f564a}
+.hours li{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #e6dccb}
+.hours b{font-weight:500;color:#1e1a15;font-variant-numeric:tabular-nums}
+.steps{counter-reset:s;margin:0;padding:0;list-style:none;font-size:12.5px;color:#5f564a}
+.steps li{position:relative;padding:8px 0 8px 30px;border-bottom:1px solid #e6dccb;counter-increment:s}
+.steps li:before{content:counter(s,decimal-leading-zero);position:absolute;left:0;top:9px;font:10px/1 ui-monospace,Menlo,monospace;color:#8b5e34}
+footer{padding:26px 0 40px;font-size:10.5px;color:#8b8272;border-top:1px solid #ddd3c4}
+footer .wrap{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap}
+@media(max-width:940px){
+ .hero .wrap{grid-template-columns:1fr;gap:18px}
+ .cup{max-width:300px;margin:0 auto}
+ .beans{grid-template-columns:1fr}
+ .two{grid-template-columns:1fr;gap:26px}
+ nav{display:none}
+}
+@media(max-width:560px){
+ .wrap{padding:0 20px}
+ .m-head{gap:12px}
+ .right .btn.line{display:none}
+ .bean{min-height:0}
+}
+@media(prefers-reduced-motion:reduce){*{transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="brand" href="#"><i aria-hidden="true"></i>KOMA 珈琲</a>
+    <nav aria-label="メインメニュー"><a href="#beans">豆</a><a href="#shop">店</a><a href="#access">地図</a></nav>
+    <div class="right"><a href="#shop" class="btn line">豆を買う</a><a href="#access" class="btn">来店案内</a></div>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <p class="eyebrow">COFFEE / ROASTED WEEKLY</p>
+      <h1>一杯のために、<br><span>豆を選ぶ。</span></h1>
+      <p class="lede">焙煎は週に2回。挽き目と湯温で味が変わるので、買った豆の飲み方もお渡しします。</p>
+      <div class="cta"><a class="btn" href="#beans">豆を見る</a><a class="btn line" href="#shop">店の情報</a></div>
+    </div>
+    <div class="cup">
+      <svg viewBox="0 0 320 320" role="img" aria-label="珈琲カップと湯気の自作イラスト">
+        <defs><linearGradient id="cupG" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fbf7ef"/><stop offset="1" stop-color="#ded2bf"/></linearGradient></defs>
+        <ellipse cx="160" cy="268" rx="92" ry="12" fill="#3c2a1c18"/>
+        <path d="M70 120h180v92c0 30-34 46-90 46s-90-16-90-46Z" fill="url(#cupG)" stroke="#c9b9a1" stroke-width="2"/>
+        <ellipse cx="160" cy="120" rx="90" ry="22" fill="#4a3222"/>
+        <ellipse cx="160" cy="118" rx="78" ry="17" fill="#6b462c"/>
+        <ellipse cx="136" cy="113" rx="18" ry="7" fill="#8a5c39" opacity=".7"/>
+        <path d="M250 150c26 2 34 20 26 36-7 14-22 18-32 16" fill="none" stroke="#c9b9a1" stroke-width="10" stroke-linecap="round"/>
+        <g stroke="#c9b9a1" stroke-width="3" fill="none" opacity=".9">
+          <path d="M132 96c-10-12 8-18-2-32"/><path d="M164 92c-10-14 10-20 0-36"/><path d="M196 96c-10-12 8-18-2-30"/>
+        </g>
+        <g fill="#3c2a1c"><ellipse cx="96" cy="272" rx="7" ry="10" transform="rotate(-24 96 272)"/><ellipse cx="120" cy="280" rx="7" ry="10" transform="rotate(16 120 280)"/></g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section class="menu" id="beans">
+  <div class="wrap">
+    <div class="m-head">
+      <div><h2 class="h2">今週の豆。</h2><p class="sub">焙煎度で絞り込めます。味の説明は、飲んだときの順番で書いています。</p></div>
+      <div class="roast" role="group" aria-label="焙煎度で絞り込む">
+        <button class="r" type="button" data-f="all" aria-pressed="true">すべて</button>
+        <button class="r" type="button" data-f="浅煎り" aria-pressed="false">浅煎り</button>
+        <button class="r" type="button" data-f="中煎り" aria-pressed="false">中煎り</button>
+        <button class="r" type="button" data-f="深煎り" aria-pressed="false">深煎り</button>
+      </div>
+    </div>
+
+    <div class="beans" id="beansList">
+      <article class="bean" data-f="浅煎り"><span class="k">01 / ETHIOPIA</span><h3>シダモ</h3><p>白桃、紅茶、最後にレモンの皮。朝の一杯に。</p><div class="bar"><i style="width:26%"></i></div><div class="foot"><span>浅煎り</span><span>¥1,600 / 200g</span></div></article>
+      <article class="bean" data-f="浅煎り"><span class="k">02 / KENYA</span><h3>ニエリ</h3><p>黒すぐり、トマト、強い甘さ。冷めても輪郭が残る。</p><div class="bar"><i style="width:34%"></i></div><div class="foot"><span>浅煎り</span><span>¥1,800 / 200g</span></div></article>
+      <article class="bean" data-f="中煎り"><span class="k">03 / GUATEMALA</span><h3>アンティグア</h3><p>焼き栗、黒糖、なめらかな舌ざわり。毎日に。</p><div class="bar"><i style="width:58%"></i></div><div class="foot"><span>中煎り</span><span>¥1,500 / 200g</span></div></article>
+      <article class="bean" data-f="中煎り"><span class="k">04 / BRAZIL</span><h3>セラード</h3><p>ナッツ、ミルクチョコ、低い酸。ミルクに負けない。</p><div class="bar"><i style="width:64%"></i></div><div class="foot"><span>中煎り</span><span>¥1,300 / 200g</span></div></article>
+      <article class="bean" data-f="深煎り"><span class="k">05 / INDONESIA</span><h3>スマトラ</h3><p>杉、スパイス、長い余韻。雨の日に。</p><div class="bar"><i style="width:86%"></i></div><div class="foot"><span>深煎り</span><span>¥1,500 / 200g</span></div></article>
+      <article class="bean" data-f="深煎り"><span class="k">06 / BLEND</span><h3>KOMA ブレンド</h3><p>カカオ、くるみ、黒糖。店で出している味。</p><div class="bar"><i style="width:78%"></i></div><div class="foot"><span>深煎り</span><span>¥1,200 / 200g</span></div></article>
+      <div class="empty" id="empty" hidden>この焙煎度の豆は、今週入荷していません。</div>
+    </div>
+    <p class="note">※産地・価格・味の表現は架空のサンプルです。カートや決済はありません。</p>
+  </div>
+</section>
+
+<section class="two" id="shop">
+  <div class="wrap two-grid">
+    <div>
+      <h3>店の時間</h3>
+      <ul class="hours">
+        <li><span>平日</span><b>8:00 – 18:00</b></li>
+        <li><span>土曜</span><b>9:00 – 18:00</b></li>
+        <li><span>日曜</span><b>9:00 – 16:00</b></li>
+        <li><span>定休</span><b>水曜</b></li>
+      </ul>
+    </div>
+    <div>
+      <h3>買い方</h3>
+      <ol class="steps">
+        <li>豆を選ぶ（200g 単位）</li>
+        <li>挽き目を伝える（豆のままでも可）</li>
+        <li>飲み方のメモを受け取る</li>
+      </ol>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer id="access">
+  <div class="wrap"><span>KOMA 珈琲 / sample shop site</span><span>店名・住所・価格は架空です。外部送信はありません。</span></div>
+</footer>
+
+<script>
+(function(){
+  var chips = Array.prototype.slice.call(document.querySelectorAll('.r'));
+  var beans = Array.prototype.slice.call(document.querySelectorAll('.bean'));
+  var empty = document.getElementById('empty');
+  chips.forEach(function(c){
+    c.addEventListener('click', function(){
+      chips.forEach(function(o){ o.setAttribute('aria-pressed', String(o === c)); });
+      var n = 0;
+      beans.forEach(function(b){
+        var ok = c.dataset.f === 'all' || b.dataset.f === c.dataset.f;
+        b.hidden = !ok; if (ok) n++;
+      });
+      empty.hidden = n !== 0;
+    });
+  });
+})();
+</script>
+</body>
+</html>

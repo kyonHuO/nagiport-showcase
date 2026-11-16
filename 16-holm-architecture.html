@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#f7f6f3">
+<title>HOLM — 建物は、地形から始まる。</title>
+<style>
+html,body{background:#f7f6f3}
+*{box-sizing:border-box}
+body{margin:0;color:#1b1a18;font:15px/1.75 "Hiragino Sans","Yu Gothic",-apple-system,sans-serif}
+a{color:inherit;text-decoration:none}button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+:focus-visible{outline:2px solid #1b1a18;outline-offset:3px}
+.wrap{max-width:1220px;margin:0 auto;padding:0 34px}
+header{border-bottom:1px solid #ddd9d1}
+header .wrap{display:flex;align-items:center;height:74px;gap:32px}
+.brand{font-size:17px;letter-spacing:.3em;font-weight:600}
+nav{display:flex;gap:26px;font-size:12px;letter-spacing:.06em;color:#6d6862}
+nav a:hover{color:#1b1a18}
+.right{margin-left:auto;font-size:11px;letter-spacing:.1em;color:#6d6862}
+.hero{padding:66px 0 48px}
+.hero .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:50px;align-items:end}
+h1{font-size:clamp(34px,4.6vw,58px);line-height:1.24;letter-spacing:-.02em;font-weight:400;margin:0}
+h1 small{display:block;font-size:11px;letter-spacing:.24em;color:#8a847c;margin-bottom:20px;font-weight:500}
+.hero p{margin:22px 0 0;font-size:13px;color:#5d5952;max-width:380px;line-height:2}
+.hero .meta{font-size:11px;color:#8a847c;line-height:2;text-align:right;border-left:1px solid #ddd9d1;padding-left:20px}
+section.work{padding:0 0 70px}
+.work-head{display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid #1b1a18;padding-top:14px;margin-bottom:26px;font-size:11px;letter-spacing:.14em;color:#6d6862}
+.grid{display:grid;grid-template-columns:.72fr 1.28fr;gap:44px;align-items:start}
+.list{list-style:none;margin:0;padding:0;border-top:1px solid #ddd9d1}
+.list li{border-bottom:1px solid #ddd9d1}
+.list button{display:grid;grid-template-columns:34px 1fr auto;gap:12px;width:100%;text-align:left;padding:15px 4px;font-size:13px;align-items:baseline;transition:padding .2s ease,background .2s ease}
+.list button:hover{padding-left:10px;background:#f2f0ec}
+.list button[aria-pressed=true]{padding-left:10px;background:#1b1a18;color:#f7f6f3}
+.list .no{font-size:10px;letter-spacing:.08em;color:#8a847c}
+.list button[aria-pressed=true] .no{color:#b9b4ab}
+.list .place{font-size:10px;color:#8a847c}
+.list button[aria-pressed=true] .place{color:#b9b4ab}
+.drawing{border:1px solid #ddd9d1;background:#fff;padding:22px;position:relative}
+.drawing svg{width:100%;height:auto;display:block}
+.drawing .plate{position:absolute;left:34px;bottom:30px;font-size:10px;letter-spacing:.14em;color:#8a847c}
+.detail{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:20px;font-size:12px;color:#5d5952}
+.detail b{display:block;font-size:13px;color:#1b1a18;margin-bottom:4px;font-weight:500}
+.statement{border-top:1px solid #ddd9d1;border-bottom:1px solid #ddd9d1;background:#f2f0ec}
+.statement .wrap{display:grid;grid-template-columns:1fr 1fr;gap:46px;padding:56px 34px}
+.statement h2{font-size:clamp(22px,2.6vw,30px);line-height:1.6;font-weight:400;margin:0;letter-spacing:-.01em}
+.rows{display:grid;gap:0}
+.row{display:grid;grid-template-columns:90px 1fr;gap:16px;padding:13px 0;border-top:1px solid #ddd9d1;font-size:12px;color:#5d5952}
+.row span{font-size:10px;letter-spacing:.1em;color:#8a847c}
+footer{padding:30px 0 44px;font-size:10px;color:#8a847c;letter-spacing:.04em}
+footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+@media(max-width:900px){
+ .hero .wrap{grid-template-columns:1fr;gap:26px}
+ .hero .meta{text-align:left;border-left:0;padding-left:0;border-top:1px solid #ddd9d1;padding-top:16px}
+ .grid{grid-template-columns:1fr;gap:26px}
+ .statement .wrap{grid-template-columns:1fr;gap:26px}
+ nav{display:none}
+}
+@media(max-width:560px){
+ .wrap{padding:0 20px}
+ .detail{grid-template-columns:1fr;gap:12px}
+ .drawing{padding:12px}
+ .drawing .plate{left:20px;bottom:16px}
+}
+@media(prefers-reduced-motion:reduce){*{transition-duration:.01ms!important;animation-duration:.01ms!important}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="brand" href="#">HOLM</a>
+    <nav aria-label="メインメニュー"><a href="#work">作品</a><a href="#studio">事務所</a><a href="#contact">連絡先</a></nav>
+    <span class="right">ARCHITECTURE / 2011–</span>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <h1><small>HOLM ARCHITECTS</small>建物は、<br>地形から始まる。</h1>
+      <p>坂、水、風。土地の条件を先に読み、そこから平面を決めます。住宅から小さな公共施設まで、同じ手順で設計しています。</p>
+    </div>
+    <div class="meta">一級建築士事務所（架空）<br>東北／東京<br>新築・改修・監理</div>
+  </div>
+</section>
+
+<section class="work" id="work">
+  <div class="wrap">
+    <div class="work-head"><span>SELECTED WORKS / 04</span><span>図面はサンプルです</span></div>
+    <div class="grid">
+      <ul class="list" role="group" aria-label="作品を選ぶ">
+        <li><button type="button" data-k="0" aria-pressed="true"><span class="no">01</span><span>斜面上の家</span><span class="place">宮城</span></button></li>
+        <li><button type="button" data-k="1" aria-pressed="false"><span class="no">02</span><span>川沿いの集会所</span><span class="place">岩手</span></button></li>
+        <li><button type="button" data-k="2" aria-pressed="false"><span class="no">03</span><span>蔵を残す改修</span><span class="place">山形</span></button></li>
+        <li><button type="button" data-k="3" aria-pressed="false"><span class="no">04</span><span>風の通る幼稚園</span><span class="place">福島</span></button></li>
+      </ul>
+      <div>
+        <div class="drawing">
+          <svg viewBox="0 0 520 330" role="img" aria-label="選択中の建築の立面図（サンプル）">
+            <g fill="none" stroke="#1b1a18" stroke-width="1.2">
+              <path d="M20 268h480" stroke="#c9c4ba"/>
+              <path id="ground" d="M20 268 90 250h340l70 18"/>
+              <g id="mass">
+                <path d="M96 250V150l86-40 96 44v96"/>
+                <path d="M182 110v140"/>
+                <path d="M96 190h182" stroke="#c9c4ba" stroke-dasharray="4 5"/>
+                <path d="M210 250v-52h44v52"/>
+                <path d="M118 176h48v34h-48z"/>
+                <path d="M96 250h182v18H96z" fill="#eceae4"/>
+              </g>
+              <g id="trees" stroke="#a8a29a">
+                <path d="M410 250v-26M410 224c-12 0-14-14-6-20 2-6 10-6 12 0 8 6 6 20-6 20Z"/>
+                <path d="M448 250v-16M448 234c-9 0-10-11-4-15 1-5 7-5 9 0 6 4 5 15-5 15Z"/>
+              </g>
+            </g>
+            <g font-family="ui-monospace,Menlo,monospace" font-size="9" fill="#8a847c">
+              <text x="20" y="292" id="dim">SLOPE 1:6 / 142.6 m²</text>
+              <text x="380" y="292">N ↑</text>
+            </g>
+          </svg>
+          <span class="plate" id="plate">PLATE 01 / 立面 1:200</span>
+        </div>
+        <div class="detail">
+          <div><b id="dName">斜面上の家</b><span id="dPlace">宮城県 / 2023</span></div>
+          <div><b id="dSpec">木造2階 / 142.6 m²</b><span id="dNote">高低差をそのまま室の段差にしています。</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="statement" id="studio">
+  <div class="wrap">
+    <h2>派手さより、<br>雨の日の具合。</h2>
+    <div class="rows">
+      <div class="row"><span>PROCESS</span>敷地調査 → 配置 → 断面 → 仕上げ。各段階で模型を作り、施主と一緒に確認します。</div>
+      <div class="row"><span>SCALE</span>30〜600 m²。住宅、集会所、小規模保育設施設など。</div>
+      <div class="row"><span>NOTE</span>このページは架空の事務所による構成の試作です。実在の設計事務所ではありません。</div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer id="contact">
+  <div class="wrap"><span>HOLM ARCHITECTS / sample site</span><span>図面・写真・実績はすべて架空のサンプルです。</span></div>
+</footer>
+
+<script>
+(function(){
+  var data = [
+    {name:'斜面上の家', place:'宮城県 / 2023', spec:'木造2階 / 142.6 m²', note:'高低差をそのまま室の段差にしています。', plate:'PLATE 01 / 立面 1:200', dim:'SLOPE 1:6 / 142.6 m²', mass:'M96 250V150l86-40 96 44v96'},
+    {name:'川沿いの集会所', place:'岩手県 / 2022', spec:'木造平屋 / 238.0 m²', note:'増水時の避難経路を建物の外側に確保。', plate:'PLATE 02 / 立面 1:200', dim:'RIVER 12.4 m / 238.0 m²', mass:'M110 250v-84h150v84'},
+    {name:'蔵を残す改修', place:'山形県 / 2021', spec:'改修 / 96.4 m²', note:'土蔵の壁を残し、内側に新しい箱を入れました。', plate:'PLATE 03 / 立面 1:200', dim:'STOREHOUSE / 96.4 m²', mass:'M120 250v-96h140v96'},
+    {name:'風の通る幼稚園', place:'福島県 / 2020', spec:'木造平屋 / 412.0 m²', note:'南北に抜ける廊下で、季節の風を通します。', plate:'PLATE 04 / 立面 1:200', dim:'WIND 2.4 m/s / 412.0 m²', mass:'M84 250v-76h196v76'}
+  ];
+  var btns = Array.prototype.slice.call(document.querySelectorAll('.list button'));
+  function pick(i){
+    var d = data[i];
+    btns.forEach(function(b){ b.setAttribute('aria-pressed', String(Number(b.dataset.k) === i)); });
+    document.getElementById('dName').textContent = d.name;
+    document.getElementById('dPlace').textContent = d.place;
+    document.getElementById('dSpec').textContent = d.spec;
+    document.getElementById('dNote').textContent = d.note;
+    document.getElementById('plate').textContent = d.plate;
+    document.getElementById('dim').textContent = d.dim;
+    document.getElementById('mass').querySelectorAll('path')[0].setAttribute('d', d.mass);
+  }
+  btns.forEach(function(b){ b.addEventListener('click', function(){ pick(Number(b.dataset.k)); }); });
+})();
+</script>
+</body>
+</html>

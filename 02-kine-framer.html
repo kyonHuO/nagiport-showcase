@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0a0a0b">
+<title>kine — 動きを、時間で書く。</title>
+<style>
+html,body{background:#0a0a0b}
+*{box-sizing:border-box}
+body{margin:0;color:#f2f0ec;font:15px/1.7 -apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+button,select,input{font:inherit;color:inherit}
+button{cursor:pointer;background:none;border:0}
+:focus-visible{outline:2px solid #c9f24e;outline-offset:3px}
+.wrap{max-width:1200px;margin:0 auto;padding:0 32px}
+header.top{border-bottom:1px solid #232326;position:sticky;top:0;z-index:30;background:#0a0a0bee;backdrop-filter:blur(12px)}
+.top .wrap{display:flex;align-items:center;height:64px;gap:30px}
+.brand{font-size:19px;font-weight:700;letter-spacing:-.04em;display:flex;align-items:center;gap:9px}
+.brand i{width:9px;height:9px;background:#c9f24e;border-radius:50%;display:block;animation:pulse 2.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(.65);opacity:.55}}
+nav.main{display:flex;gap:24px;font-size:13px;color:#9a9792}
+nav.main a:hover{color:#fff}
+.top .right{margin-left:auto;display:flex;gap:10px;align-items:center;font-size:13px}
+.btn{border-radius:6px;padding:9px 16px;font-size:13px;font-weight:600;border:1px solid #34343a;transition:background .18s ease,color .18s ease,border-color .18s ease}
+.btn:hover{background:#1a1a1e}
+.btn.lime{background:#c9f24e;color:#0a0a0b;border-color:#c9f24e}
+.btn.lime:hover{background:#e2ffa0}
+
+.hero{padding:74px 0 0}
+.hero .wrap{display:grid;grid-template-columns:1.08fr .92fr;gap:48px;align-items:end}
+.kicker{display:inline-flex;align-items:center;gap:10px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#8d8a84;border:1px solid #2a2a2e;border-radius:999px;padding:6px 12px}
+.kicker b{width:6px;height:6px;background:#c9f24e;border-radius:50%}
+h1{font-size:clamp(42px,6vw,86px);line-height:1.02;letter-spacing:-.06em;font-weight:700;margin:22px 0 24px}
+h1 span{color:#6f6c66}
+.lede{color:#a5a29c;max-width:410px;font-size:15px;line-height:1.9}
+.hero-actions{display:flex;gap:12px;margin-top:30px;flex-wrap:wrap}
+.small{font-size:11px;color:#75726c;margin-top:16px}
+.stage{border:1px solid #26262a;border-radius:12px;background:radial-gradient(120% 100% at 50% 0%,#18181c 0%,#0d0d0f 60%);padding:18px;position:relative;overflow:hidden}
+.stage-top{display:flex;justify-content:space-between;font-size:10px;color:#6d6a64;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
+.viewport{aspect-ratio:1.42;border:1px solid #26262a;border-radius:8px;background:#0f0f11;position:relative;overflow:hidden;display:grid;place-items:center}
+.grid-bg{position:absolute;inset:0;background:linear-gradient(#ffffff08 1px,transparent 1px) 0 0/100% 32px,linear-gradient(90deg,#ffffff08 1px,transparent 1px) 0 0/32px 100%}
+.preview{position:relative;width:74%;display:flex;flex-direction:column;gap:9px;transform:translateY(calc((var(--p,0) - .5) * 26px))}
+.bar{height:9px;border-radius:3px;background:#2c2c31}
+.bar.a{width:64%;background:linear-gradient(90deg,#c9f24e,#8fd41e);transform:translateX(calc(var(--p,0) * 22px))}
+.bar.b{width:88%;opacity:calc(.35 + var(--p,0) * .65)}
+.bar.c{width:40%;background:#ff6a4d;transform:scaleX(calc(.4 + var(--p,0) * .6));transform-origin:left}
+.block{margin-top:8px;height:64px;border-radius:6px;background:linear-gradient(120deg,#1f1f25,#2b2b33);border:1px solid #33333a;display:flex;align-items:center;justify-content:center;transform:rotate(calc((var(--p,0) - .5) * 5deg))}
+.block svg{width:36px;height:36px;opacity:calc(.4 + var(--p,0) * .6)}
+.pct{position:absolute;right:10px;bottom:8px;font:11px/1 ui-monospace,SFMono-Regular,Menlo,monospace;color:#c9f24e}
+.timeline{margin-top:14px;border-top:1px solid #26262a;padding-top:12px}
+.tl-head{display:flex;justify-content:space-between;align-items:center;font-size:10px;color:#6d6a64;letter-spacing:.08em;margin-bottom:8px}
+.tl-head b{color:#d8d5cf;font-weight:500;font-variant-numeric:tabular-nums}
+.track{position:relative;height:44px;border-radius:6px;background:#131316;border:1px solid #26262a;overflow:hidden}
+.track i{position:absolute;top:0;bottom:0;width:1px;background:#ffffff0d}
+.keys{position:absolute;left:8%;top:9px;width:9px;height:9px;background:#c9f24e}
+.keys.k2{left:44%;top:25px;background:#ff6a4d}
+.keys.k3{left:76%;top:15px;background:#6ea8ff}
+.playhead{position:absolute;top:0;bottom:0;left:calc(var(--p,0) * 100%);width:1px;background:#ffffff55}
+.track input[type=range]{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:ew-resize;margin:0}
+.controls{display:flex;align-items:center;gap:10px;margin-top:11px;flex-wrap:wrap}
+.pbtn{display:inline-flex;align-items:center;gap:7px;border:1px solid #34343a;border-radius:5px;padding:6px 11px;font-size:11px;color:#d8d5cf}
+.pbtn:hover{background:#1a1a1e}
+.pbtn svg{width:11px;height:11px}
+select.ease{background:#131316;border:1px solid #34343a;border-radius:5px;padding:6px 9px;font-size:11px;color:#d8d5cf}
+.hint{margin-left:auto;font-size:10px;color:#6d6a64}
+
+.logos{border-top:1px solid #1d1d20;border-bottom:1px solid #1d1d20;margin-top:64px;padding:20px 0}
+.logos .wrap{display:flex;align-items:center;gap:34px;flex-wrap:wrap;font-size:12px;color:#66635e;letter-spacing:.02em}
+.logos span:first-child{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#4f4c48}
+.logos b{color:#a5a29c;font-weight:500}
+
+section.body{padding:78px 0}
+.h2{font-size:clamp(27px,3.3vw,40px);letter-spacing:-.045em;line-height:1.2;margin:0 0 12px}
+.sub{color:#a5a29c;font-size:14px;line-height:1.9;max-width:540px}
+.cols{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#1d1d20;border:1px solid #1d1d20;margin-top:34px}
+.col{background:#0a0a0b;padding:26px 24px}
+.col .n{font:11px/1 ui-monospace,Menlo,monospace;color:#c9f24e;letter-spacing:.1em}
+.col h3{font-size:17px;margin:14px 0 8px;letter-spacing:-.02em}
+.col p{font-size:13px;color:#918e88;line-height:1.85;margin:0}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:center;margin-top:34px}
+.code{border:1px solid #26262a;border-radius:10px;background:#0d0d0f;overflow:hidden;font:12px/1.9 ui-monospace,SFMono-Regular,Menlo,monospace}
+.code div.h{display:flex;gap:6px;padding:9px 12px;border-bottom:1px solid #26262a;color:#6d6a64;font-size:10px}
+.code div.h i{width:8px;height:8px;border-radius:50%;background:#2c2c31;display:block}
+.code pre{margin:0;padding:14px 16px;overflow-x:auto;color:#b9b6b0}
+.code .k{color:#c9f24e}.code .v{color:#6ea8ff}.code .c{color:#5c5955}
+ul.plain{list-style:none;padding:0;margin:22px 0 0;font-size:13px;color:#a5a29c}
+ul.plain li{display:flex;gap:10px;padding:9px 0;border-top:1px solid #1d1d20}
+ul.plain li:before{content:"→";color:#c9f24e}
+footer{border-top:1px solid #1d1d20;padding:30px 0 40px;font-size:11px;color:#75726c}
+footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.note{max-width:520px;line-height:1.8}
+@media(max-width:940px){
+ .hero .wrap{grid-template-columns:1fr;gap:34px;padding-top:0}
+ .cols{grid-template-columns:1fr}
+ .split{grid-template-columns:1fr;gap:26px}
+ nav.main{display:none}
+}
+@media(max-width:560px){
+ .wrap{padding:0 20px}
+ h1{font-size:clamp(36px,10.4vw,48px)}
+ h1 span{display:block;font-size:.72em;line-height:1.24;margin-top:8px}
+ .keys{margin-left:calc(var(--p,0) * 190px)}
+ .top .right .btn:not(.lime){display:none}
+ .hint{display:none}
+}
+@media(prefers-reduced-motion:reduce){
+ *{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#"><i aria-hidden="true"></i>kine</a>
+    <nav class="main" aria-label="メインメニュー"><a href="#stage">スタジオ</a><a href="#depth">考え方</a><a href="#code">書き出し</a></nav>
+    <div class="right">
+      <a class="btn" href="#stage">ログイン</a>
+      <a class="btn lime" href="#stage">試す</a>
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <span class="kicker"><b aria-hidden="true"></b>motion, without the mess</span>
+      <h1>動きを、<br>時間で書く。<span>0.8 秒を、<br>12 の判断に。</span></h1>
+      <p class="lede">イージングの違いが、伝わる速さを決める。タイムラインを指で動かして、動きの理由を確かめながら決められます。</p>
+      <div class="hero-actions">
+        <a class="btn lime" href="#stage">タイムラインを動かす</a>
+        <a class="btn" href="#depth">設計の考え方</a>
+      </div>
+      <p class="small">※下のプレビューはこのページ内のデモです。外部サービスへの送信はありません。</p>
+    </div>
+
+    <div class="stage" id="stage">
+      <div class="stage-top"><span>preview / 960 × 600</span><span id="stateLabel">paused</span></div>
+      <div class="viewport">
+        <div class="grid-bg" aria-hidden="true"></div>
+        <div class="preview" style="--p:0.35">
+          <div class="bar a"></div>
+          <div class="bar b"></div>
+          <div class="bar c"></div>
+          <div class="block">
+            <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#c9f24e" stroke-width="1.6"><path d="M4 17 9 7l4 7 3-4 4 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+        </div>
+        <span class="pct" id="pct">35%</span>
+      </div>
+      <div class="timeline">
+        <div class="tl-head"><span>timeline / 1.2s</span><b id="timecode">00:00.42</b></div>
+        <div class="track" id="track">
+          <i style="left:25%"></i><i style="left:50%"></i><i style="left:75%"></i>
+          <span class="keys"></span><span class="keys k2"></span><span class="keys k3"></span>
+          <span class="playhead"></span>
+          <input id="scrub" type="range" min="0" max="100" value="35" step="1" aria-label="タイムラインの位置">
+        </div>
+        <div class="controls">
+          <button class="pbtn" id="play" type="button" aria-pressed="false">
+            <svg viewBox="0 0 12 12" aria-hidden="true" fill="currentColor" id="playIcon"><path d="M2 1l9 5-9 5z"/></svg>
+            <span id="playText">再生</span>
+          </button>
+          <select class="ease" id="ease" aria-label="イージング">
+            <option value="ease-out">ease-out / 減速</option>
+            <option value="ease-in-out">ease-in-out / 往復</option>
+            <option value="linear">linear / 等速</option>
+          </select>
+          <span class="hint">ドラッグでスクラブ</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="logos">
+  <div class="wrap"><span>used by teams at</span><b>架空製作所</b><b>STUDIO KO</b><b>北町ラボ</b><b>mono inc.</b></div>
+</div>
+
+<section class="body" id="depth">
+  <div class="wrap">
+    <h2>「なんとなく滑らか」を、<br>数字で説明する。</h2>
+    <p class="sub">動きの良し悪しは、開始から終了までの配分でほぼ決まります。kine はその配分を、言葉ではなくカーブで共有します。</p>
+    <div class="cols">
+      <article class="col"><span class="n">01 / CURVE</span><h3>曲線が主役</h3><p>始まりは速く、終わりは静かに。0.2 秒の差が、重さの印象を変えます。</p></article>
+      <article class="col"><span class="n">02 / KEY</span><h3>キーは3つまで</h3><p>増やすほど制御は難しくなる。まず3つの点で、伝えたい順番を決めます。</p></article>
+      <article class="col"><span class="n">03 / LOOP</span><h3>止め方も設計</h3><p>繰り返す動きには、必ず静止の間を。目が休める場所を残します。</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="body" id="code" style="padding-top:0">
+  <div class="wrap">
+    <div class="split">
+      <div>
+        <h2 class="h2">決めた動きは、<br>そのまま渡す。</h2>
+        <p class="sub">タイムラインの値は、CSSの変数として書き出せます。実装側で秒数を測り直す必要はありません。</p>
+        <ul class="plain">
+          <li>イージング名と秒数をセットで記録</li>
+          <li>キー位置は % で保持</li>
+          <li>動きを減らす設定では自動で静止</li>
+        </ul>
+      </div>
+      <div class="code" aria-label="書き出し例">
+        <div class="h"><i></i><i></i><i></i><span style="margin-left:auto">motion.css</span></div>
+        <pre><span class="c">/* 0.8s / ease-out */</span>
+<span class="k">.hero</span> {
+  <span class="v">--motion-duration</span>: .8s;
+  <span class="v">--motion-ease</span>: cubic-bezier(.22,.61,.36,1);
+  <span class="v">--motion-distance</span>: 26px;
+}
+<span class="k">@media</span> (prefers-reduced-motion: reduce) {
+  <span class="k">.hero</span> { <span class="v">--motion-distance</span>: 0px }
+}</pre>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div><strong style="color:#f2f0ec">kine</strong><p class="note">架空のモーションツールによる構成の試作です。実在のサービス・企業とは関係ありません。保存・共有・課金は行いません。</p></div>
+    <span>© 2026 kine / sample build</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var root = document.documentElement;
+  var scrub = document.getElementById('scrub');
+  var track = document.getElementById('track');
+  var pct = document.getElementById('pct');
+  var tc = document.getElementById('timecode');
+  var label = document.getElementById('stateLabel');
+  var playBtn = document.getElementById('play');
+  var playText = document.getElementById('playText');
+  var playIcon = document.getElementById('playIcon');
+  var preview = document.querySelector('.preview');
+  var keys = document.querySelectorAll('.keys');
+  var playing = false, raf = null, t0 = 0, duration = 1200;
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function paint(p){
+    p = Math.max(0, Math.min(1, p));
+    document.documentElement.style.setProperty('--p', p.toFixed(3));
+    keys.forEach(function(k, i){
+      var off = p * (track.clientWidth - 34);
+      k.style.transform = 'translateX(' + off * (1 + i * 0.08) + 'px) rotate(45deg)';
+    });
+    scrub.value = Math.round(p * 100);
+    pct.textContent = Math.round(p * 100) + '%';
+    var ms = Math.round(p * duration);
+    tc.textContent = '00:00.' + String(ms).padStart(3, '0');
+  }
+
+  scrub.addEventListener('input', function(){
+    stop();
+    paint(Number(scrub.value) / 100);
+    label.textContent = 'scrubbed';
+  });
+
+  function loop(ts){
+    if (!t0) t0 = ts;
+    var p = ((ts - t0) % duration) / duration;
+    paint(p);
+    raf = requestAnimationFrame(loop);
+  }
+  function start(){
+    if (reduce) return;
+    playing = true; t0 = 0;
+    label.textContent = 'playing';
+    playText.textContent = '停止';
+    playBtn.setAttribute('aria-pressed','true');
+    playIcon.innerHTML = '<rect x="2" y="1" width="3" height="10"/><rect x="7" y="1" width="3" height="10"/>';
+    raf = requestAnimationFrame(loop);
+  }
+  function stop(){
+    playing = false;
+    if (raf) cancelAnimationFrame(raf);
+    raf = null;
+    label.textContent = 'paused';
+    playText.textContent = '再生';
+    playBtn.setAttribute('aria-pressed','false');
+    playIcon.innerHTML = '<path d="M2 1l9 5-9 5z"/>';
+  }
+  playBtn.addEventListener('click', function(){ playing ? stop() : start(); });
+
+  var eases = {'ease-out':'cubic-bezier(.22,.61,.36,1)','ease-in-out':'cubic-bezier(.65,0,.35,1)','linear':'linear'};
+  document.getElementById('ease').addEventListener('change', function(e){
+    preview.style.transition = 'transform .3s ' + eases[e.target.value];
+    label.textContent = e.target.value;
+  });
+
+  paint(0.35);
+  window.addEventListener('resize', function(){ paint(Number(scrub.value) / 100); });
+})();
+</script>
+</body>
+</html>

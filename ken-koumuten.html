@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#f2efe9">
+<title>KEN 工務店 — 坪数から、間取りを考える。</title>
+<style>
+html,body{background:#f2efe9}
+*{box-sizing:border-box}
+body{margin:0;color:#22201c;font:15px/1.75 "Hiragino Sans","Yu Gothic",system-ui,sans-serif}
+a{color:inherit;text-decoration:none}button,input{font:inherit;color:inherit}
+button{cursor:pointer;background:none;border:0}
+:focus-visible{outline:2px solid #8a5a2b;outline-offset:3px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 30px}
+header{border-bottom:1px solid #ddd6c9}
+header .wrap{display:flex;align-items:center;height:68px;gap:26px}
+.brand{font-size:19px;font-weight:700;letter-spacing:.06em}
+nav{display:flex;gap:20px;font-size:12.5px;color:#6b6255}
+nav a:hover{color:#22201c}
+.tel{margin-left:auto;font:600 13px/1 ui-monospace,Menlo,monospace;color:#8a5a2b}
+.hero{padding:56px 0 30px}
+.hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center}
+.eyebrow{font:10px/1 ui-monospace,Menlo,monospace;letter-spacing:.2em;color:#8a5a2b}
+h1{font-size:clamp(30px,4.2vw,48px);line-height:1.32;letter-spacing:-.03em;margin:14px 0 14px}
+.lede{color:#5b5346;font-size:13.5px;max-width:400px;line-height:1.95}
+.ph{aspect-ratio:4/3;background:linear-gradient(155deg,#d8cfbe,#a08b6c 60%,#6f5942);position:relative}
+.ph:after{content:"";position:absolute;inset:0;background:linear-gradient(to top,#00000022,transparent 55%)}
+.ph span{position:absolute;left:12px;bottom:10px;font:9px/1 ui-monospace,Menlo,monospace;color:#fff8ea;letter-spacing:.14em}
+section.plan{padding:36px 0 20px;border-top:1px solid #22201c}
+h2{font-size:clamp(21px,2.6vw,27px);margin:0 0 6px;letter-spacing:-.02em}
+.sub{font-size:12.5px;color:#6b6255;margin:0 0 18px}
+.builder{display:grid;grid-template-columns:1fr .9fr;gap:26px;border:1px solid #ddd6c9;background:#fbf9f4;padding:22px}
+.builder h3{font-size:11px;letter-spacing:.12em;color:#8a7d69;margin:0 0 10px}
+input[type=range]{width:100%;accent-color:#8a5a2b;margin:8px 0 4px}
+.out{font:700 30px/1.2 ui-monospace,Menlo,monospace;color:#8a5a2b;letter-spacing:-.02em}
+.out small{font-size:12px;color:#8a7d69;font-weight:400;margin-left:4px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px;font-size:12px;color:#5b5346}
+.grid b{display:block;font-size:14px;color:#22201c}
+.plan-fig{position:relative;background:#fff;border:1px solid #e7dfd2;min-height:220px;display:grid;place-items:center}
+.plan-fig svg{width:100%;height:auto}
+.note{font-size:10.5px;color:#94897a;margin-top:10px}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding:28px 0 50px}
+.card{border-top:1px solid #ddd6c9;padding-top:12px}
+.card b{display:block;font-size:13.5px;margin-bottom:4px}
+.card p{font-size:12px;color:#6b6255;margin:0;line-height:1.85}
+footer{border-top:1px solid #ddd6c9;padding:22px 0 36px;font-size:10.5px;color:#8a7d69}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+@media(max-width:900px){.hero .wrap{grid-template-columns:1fr;gap:22px}.builder{grid-template-columns:1fr}.cards{grid-template-columns:1fr;gap:14px}nav{display:none}}
+@media(max-width:560px){.wrap{padding:0 18px}.hero{padding:34px 0 20px}.out{font-size:26px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<header><div class="wrap"><a class="brand" href="#">KEN</a>
+<nav aria-label="メインメニュー"><a href="#plan">間取り</a><a href="#works">施工例</a><a href="#contact">相談</a></nav>
+<span class="tel">0120-000-000</span></div></header>
+<main>
+<section class="hero"><div class="wrap">
+  <div><p class="eyebrow">HOUSE BUILDER / TOHOKU</p>
+  <h1>坪数から、<br>間取りを考える。</h1>
+  <p class="lede">先に広さを決めて、暮らしを当てはめる。無理のない総二階を基本に、土地の形に合わせて調整します。</p></div>
+  <div class="ph"><span>SAMPLE / EXTERIOR</span></div>
+</div></section>
+
+<section class="plan" id="plan"><div class="wrap">
+  <h2>広さを動かすと、間取りが見える。</h2>
+  <p class="sub">坪数を変えると、LDKと個室の目安が変わります（サンプル）。</p>
+  <div class="builder">
+    <div>
+      <h3>延床面積</h3>
+      <output class="out" id="tsuboOut">32<small>坪</small></output>
+      <input type="range" id="tsubo" min="22" max="48" step="1" value="32" aria-label="延床面積（坪）">
+      <div class="grid">
+        <div><b id="ldk">18.5 帖</b>LDK</div>
+        <div><b id="rooms">3 室</b>個室</div>
+        <div><b id="m2">105.8 m²</b>延床</div>
+        <div><b id="cost">約 1,980 万円</b>概算（サンプル）</div>
+      </div>
+      <p class="note">※ 表示は目安のサンプルです。実際の設計・費用とは異なります。</p>
+    </div>
+    <div class="plan-fig" aria-hidden="true">
+      <svg viewBox="0 0 300 210">
+        <g fill="none" stroke="#8a5a2b" stroke-width="1.4">
+          <rect x="20" y="20" width="260" height="170" fill="#fbf7ef"/>
+          <path d="M20 110h120M140 110v80M140 20v60"/>
+          <rect x="150" y="40" width="110" height="60" fill="#efe4d2"/>
+          <rect x="40" y="130" width="70" height="45" fill="#e6dcc9"/>
+        </g>
+        <g fill="#8a7d69" font-family="ui-monospace,Menlo,monospace" font-size="9">
+          <text x="30" y="36">LDK</text><text x="155" y="70">寝室</text><text x="46" y="156">和室</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+</div></section>
+
+<section id="works"><div class="wrap cards">
+  <div class="card"><b>土地の形から</b><p>旗竿地・斜面・変形地。まず敷地を読み、無理のない配置を決めます。</p></div>
+  <div class="card"><b>総二階が基本</b><p>躯体をシンプルにすると、その分を断熱と設備に回せます。</p></div>
+  <div class="card"><b>引き渡し後</b><p>10年点検まで無料。気になったら、まず電話で相談してください。</p></div>
+</div></section>
+</main>
+<footer><div class="wrap"><span>KEN 工務店 / sample site</span><span>社名・価格・間取りは架空のサンプルです。送信機能はありません。</span></div></footer>
+<script>
+(function(){
+  var t=document.getElementById('tsubo'),out=document.getElementById('tsuboOut');
+  var ldk=document.getElementById('ldk'),rooms=document.getElementById('rooms'),m2=document.getElementById('m2'),cost=document.getElementById('cost');
+  function paint(){
+    var v=Number(t.value);
+    out.innerHTML=v+'<small>坪</small>';
+    ldk.textContent=(v*0.58).toFixed(1)+' 帖';
+    rooms.textContent=(v>=38?4:v>=28?3:2)+' 室';
+    m2.textContent=(v*3.306).toFixed(1)+' m²';
+    cost.textContent='約 '+(v*62).toLocaleString('ja-JP')+' 万円';
+  }
+  t.addEventListener('input',paint); paint();
+})();
+</script>
+</body>
+</html>

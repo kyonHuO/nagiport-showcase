@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#f6f6f5">
+<title>rule — 幅が変わっても、構造は崩れない。</title>
+<style>
+html,body{background:#f6f6f5}
+*{box-sizing:border-box}
+body{margin:0;color:#16161a;font:15px/1.72 -apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;cursor:pointer;background:none;border:0}
+:focus-visible{outline:2px solid #3a34d6;outline-offset:3px}
+.wrap{max-width:1240px;margin:0 auto;padding:0 32px}
+header.top{border-bottom:1px solid #e3e3e0;background:#f6f6f5ee;backdrop-filter:blur(10px);position:sticky;top:0;z-index:20}
+.top .wrap{display:flex;align-items:center;height:64px;gap:28px}
+.brand{font-size:19px;font-weight:700;letter-spacing:-.04em;display:flex;align-items:center;gap:8px}
+.brand i{width:14px;height:14px;border:2px solid #3a34d6;border-radius:2px;display:block;box-shadow:3px 3px 0 #3a34d6}
+nav.main{display:flex;gap:24px;font-size:13px;color:#55555e}
+nav.main a:hover{color:#16161a}
+.top .right{margin-left:auto;display:flex;gap:16px;align-items:center;font-size:13px}
+.btn{display:inline-flex;align-items:center;gap:7px;padding:9px 16px;border-radius:6px;font-size:13px;font-weight:600;border:1px solid #d6d6d2;transition:background .16s ease,border-color .16s ease,color .16s ease}
+.btn:hover{border-color:#16161a}
+.btn.solid{background:#3a34d6;color:#fff;border-color:#3a34d6}
+.btn.solid:hover{background:#2b26a8}
+
+.hero{padding:60px 0 34px}
+.hero .wrap{display:grid;grid-template-columns:1fr .96fr;gap:52px;align-items:start}
+.tagline{font:11px/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.12em;text-transform:uppercase;color:#6b6b74;display:flex;align-items:center;gap:9px}
+.tagline b{width:22px;height:1px;background:#3a34d6;display:block}
+h1{font-size:clamp(38px,5vw,68px);line-height:1.1;letter-spacing:-.055em;font-weight:700;margin:18px 0 20px}
+h1 span{color:#3a34d6}
+.lede{color:#55555e;max-width:420px;font-size:15px;line-height:1.95}
+.cta{display:flex;gap:12px;margin-top:28px;flex-wrap:wrap}
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:38px;border-top:1px solid #e3e3e0}
+.fact{padding:16px 14px 0 0;border-right:1px solid #e3e3e0}
+.fact:last-child{border-right:0}
+.fact b{display:block;font-size:20px;letter-spacing:-.03em}
+.fact span{font-size:11px;color:#6b6b74}
+
+/* builder preview */
+.builder{border:1px solid #dcdcd8;border-radius:10px;background:#fff;overflow:hidden;box-shadow:0 24px 60px -46px #16161a40}
+.b-top{display:flex;align-items:center;gap:8px;padding:9px 11px;border-bottom:1px solid #e9e9e6;background:#fbfbfa}
+.dots{display:flex;gap:5px}.dots i{width:8px;height:8px;border-radius:50%;background:#e0e0dc;display:block}
+.url{flex:1;font:11px/1 ui-monospace,Menlo,monospace;color:#8a8a92;background:#f1f1ee;border-radius:5px;padding:6px 9px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.b-body{padding:12px}
+.bp-bar{display:flex;align-items:center;gap:4px;font-size:11px;margin-bottom:0}
+.bp{display:flex;align-items:center;gap:7px;padding:5px 9px;border-radius:5px;color:#6b6b74}
+.bp[aria-pressed=true]{background:#eeeefb;color:#2b26a8;font-weight:600}
+.bp svg{width:12px;height:12px}
+.width{margin-left:auto;font:10px/1 ui-monospace,Menlo,monospace;color:#8a8a92}
+.frame-wrap{margin-top:9px;background:#f1f1ee;border-radius:7px;padding:11px;display:flex;justify-content:center;transition:padding .2s ease}
+.frame{width:100%;max-width:100%;background:#fff;border:1px solid #e4e4df;border-radius:5px;overflow:hidden;transition:width .32s cubic-bezier(.22,.61,.36,1);font-size:12px}
+.frame[data-w="860"]{width:86%}
+.frame[data-w="420"]{width:46%}
+.mock-nav{display:flex;align-items:center;gap:10px;padding:9px 11px;border-bottom:1px solid #eee}
+.mock-logo{font-weight:700;font-size:11px;letter-spacing:-.02em}
+.mock-links{display:flex;gap:9px;font-size:9px;color:#77777f}
+.mock-cta{margin-left:auto;background:#3a34d6;color:#fff;font-size:8px;padding:4px 7px;border-radius:3px}
+.mock-burger{display:none;margin-left:auto;flex-direction:column;gap:3px}
+.mock-burger i{width:14px;height:1.5px;background:#16161a;display:block}
+.mock-hero{display:grid;grid-template-columns:1.15fr .85fr;gap:9px;padding:12px 11px}
+.mock-h1{font-size:17px;line-height:1.25;letter-spacing:-.04em;font-weight:700;margin:0 0 6px}
+.mock-p{font-size:9px;color:#77777f;line-height:1.7;margin:0}
+.mock-shapes{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+.mock-shapes i{display:block;border-radius:3px;aspect-ratio:1.4}
+.mock-shapes i:nth-child(1){background:#dcd9ff}
+.mock-shapes i:nth-child(2){background:#ffd9c2}
+.mock-shapes i:nth-child(3){background:#c9f0dc}
+.mock-shapes i:nth-child(4){background:#f2e3ff}
+.mock-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;padding:0 11px 12px}
+.mock-card{border:1px solid #eee;border-radius:4px;padding:7px}
+.mock-card b{display:block;height:4px;width:60%;background:#e4e4df;border-radius:2px;margin-bottom:4px}
+.mock-card i{display:block;height:3px;background:#efefeb;border-radius:2px;margin-top:3px}
+.frame[data-w="420"] .mock-links{display:none}
+.frame[data-w="420"] .mock-cta{display:none}
+.frame[data-w="420"] .mock-burger{display:flex}
+.frame[data-w="420"] .mock-hero{grid-template-columns:1fr}
+.frame[data-w="420"] .mock-cards{grid-template-columns:1fr}
+.frame[data-w="420"] .mock-h1{font-size:15px}
+.frame[data-w="860"] .mock-cards{grid-template-columns:repeat(3,1fr)}
+.b-note{font-size:10px;color:#8a8a92;padding:0 2px 12px;display:flex;gap:12px;flex-wrap:wrap}
+.legend{display:flex;align-items:center;gap:6px}
+.legend i{width:8px;height:8px;border-radius:2px;background:#dcd9ff;display:block}
+
+section.band{padding:72px 0;border-top:1px solid #e3e3e0}
+.h2{font-size:clamp(26px,3.3vw,40px);line-height:1.22;letter-spacing:-.045em;margin:0 0 12px}
+.sub{color:#55555e;font-size:14px;line-height:1.9;max-width:520px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#e3e3e0;border:1px solid #e3e3e0;margin-top:34px}
+.box{background:#f6f6f5;padding:24px 22px}
+.box .num{font:11px/1 ui-monospace,Menlo,monospace;color:#3a34d6;letter-spacing:.1em}
+.box h3{font-size:17px;margin:13px 0 7px;letter-spacing:-.02em}
+.box p{font-size:13px;color:#5c5c66;margin:0;line-height:1.85}
+table.cmp{width:100%;border-collapse:collapse;margin-top:30px;font-size:13px}
+table.cmp th,table.cmp td{text-align:left;padding:11px 12px;border-bottom:1px solid #e3e3e0}
+table.cmp th{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#77777f;font-weight:600;border-bottom:1px solid #cfcfca}
+table.cmp td:first-child{font-weight:600;width:34%}
+table.cmp tr td{color:#55555e}
+table.cmp tr td:first-child{color:#16161a}
+.cta-line{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;margin-top:32px;padding-top:26px;border-top:1px solid #e3e3e0}
+footer{padding:32px 0 42px;border-top:1px solid #e3e3e0;font-size:11px;color:#77777f}
+footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.note{max-width:530px;line-height:1.8}
+@media(max-width:960px){
+ .hero .wrap{grid-template-columns:1fr;gap:34px}
+ .grid3{grid-template-columns:1fr}
+ nav.main{display:none}
+ .facts{grid-template-columns:1fr 1fr}
+}
+@media(max-width:560px){
+ .wrap{padding:0 20px}
+ .frame[data-w="860"]{width:100%}
+ .frame[data-w="420"]{width:78%}
+ .b-body{padding:9px}
+ .bp span{display:none}
+ .bp{padding:6px}
+ .top .right .btn:not(.solid){display:none}
+}
+@media(prefers-reduced-motion:reduce){*{transition-duration:.01ms!important;animation-duration:.01ms!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#"><i aria-hidden="true"></i>rule</a>
+    <nav class="main" aria-label="メインメニュー"><a href="#builder">ビルダー</a><a href="#why">設計</a><a href="#compare">比較</a></nav>
+    <div class="right"><a href="#builder">ログイン</a><a class="btn solid" href="#builder">無料で作る</a></div>
+  </div>
+</header>
+
+<main>
+<section class="hero" id="builder">
+  <div class="wrap">
+    <div>
+      <p class="tagline"><b aria-hidden="true"></b>structure first</p>
+      <h1>幅が変わっても、<br><span>構造</span>は崩れない。</h1>
+      <p class="lede">同じ中身を、3つの幅で確かめる。PCで組んだ段組みが、タブレットで詰まり、スマホで1列になるまでを、その場で見られます。</p>
+      <div class="cta">
+        <a class="btn solid" href="#builder">幅を切り替える</a>
+        <a class="btn" href="#why">設計のルール</a>
+      </div>
+      <div class="facts">
+        <div class="fact"><b>3 幅</b><span>同時に比較</span></div>
+        <div class="fact"><b>1 構造</b><span>中身は使い回す</span></div>
+        <div class="fact"><b>0 個</b><span>複製されたページ</span></div>
+      </div>
+    </div>
+
+    <div class="builder">
+      <div class="b-top">
+        <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span class="url">rule.example/studio</span>
+      </div>
+      <div class="b-body">
+        <div class="bp-bar" role="group" aria-label="プレビュー幅">
+          <button class="bp" type="button" data-w="1200" aria-pressed="true">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><rect x="1.5" y="3" width="13" height="9" rx="1"/><path d="M5.5 14.5h5"/></svg>
+            <span>デスクトップ</span>
+          </button>
+          <button class="bp" type="button" data-w="860" aria-pressed="false">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><rect x="2.5" y="1.8" width="11" height="12.4" rx="1.4"/><path d="M6.5 12.6h3"/></svg>
+            <span>タブレット</span>
+          </button>
+          <button class="bp" type="button" data-w="420" aria-pressed="false">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><rect x="4.6" y="1.5" width="6.8" height="13" rx="1.6"/><path d="M7 12.8h2"/></svg>
+            <span>モバイル</span>
+          </button>
+          <span class="width" id="wLabel">1200 px（縮小表示）</span>
+        </div>
+
+        <div class="frame-wrap">
+          <div class="frame" id="frame" data-w="1200">
+            <div class="mock-nav">
+              <span class="mock-logo">north</span>
+              <span class="mock-links"><a>製品</a><a>事例</a><a>価格</a><a>資料</a></span>
+              <span class="mock-cta">相談する</span>
+              <span class="mock-burger" aria-hidden="true"><i></i><i></i><i></i></span>
+            </div>
+            <div class="mock-hero">
+              <div>
+                <h4 class="mock-h1">小さな工房の、<br>しごとをまとめる。</h4>
+                <p class="mock-p">受注・制作・納品を1本の流れに。現場の言葉のまま記録できます。</p>
+              </div>
+              <div class="mock-shapes" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+            </div>
+            <div class="mock-cards" aria-hidden="true">
+              <div class="mock-card"><b></b><i></i><i style="width:70%"></i></div>
+              <div class="mock-card"><b style="width:45%"></b><i></i><i style="width:55%"></i></div>
+              <div class="mock-card"><b style="width:70%"></b><i></i><i style="width:80%"></i></div>
+            </div>
+          </div>
+        </div>
+        <div class="b-note">
+          <span class="legend"><i aria-hidden="true"></i>段組みの変化を見るデモ</span>
+          <span>中身の文章と構造は同じまま</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="why">
+  <div class="wrap">
+    <h2 class="h2">ページを増やさずに、<br>幅へ合わせる。</h2>
+    <p class="sub">同じ内容を3つ複製すると、直すときに3箇所を直すことになります。rule は1つの構造に幅のルールを持たせます。</p>
+    <div class="grid3">
+      <article class="box"><span class="num">01 / FLOW</span><h3>並びは幅で決める</h3><p>3列が入らない幅では、2列、1列へ。無理に縮めず、順番で解決します。</p></article>
+      <article class="box"><span class="num">02 / BREAK</span><h3>切れ目は1箇所</h3><p>切り替えの幅を少数に絞る。増やすほど、確認する画面が増えていきます。</p></article>
+      <article class="box"><span class="num">03 / TYPE</span><h3>文字は読みやすさ優先</h3><p>見出しは縮めても、本文は縮めない。行長を保つと読み疲れが減ります。</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="compare">
+  <div class="wrap">
+    <h2 class="h2">3つの幅で、同じ中身。</h2>
+    <p class="sub">左のデモで切り替えた状態が、そのまま比較の表になります。実際の表示はこのページ内で確認できます。</p>
+    <table class="cmp">
+      <thead><tr><th scope="col">項目</th><th scope="col">デスクトップ</th><th scope="col">タブレット</th><th scope="col">モバイル</th></tr></thead>
+      <tbody>
+        <tr><td>ナビゲーション</td><td>横並び5項目</td><td>主要3項目</td><td>メニューに集約</td></tr>
+        <tr><td>ヒーロー</td><td>2段組み</td><td>2段組み（狭）</td><td>1列・縦積み</td></tr>
+        <tr><td>カード</td><td>3列</td><td>3列（狭）</td><td>1列</td></tr>
+        <tr><td>中身の文章</td><td colspan="3">すべて同じ（複製しない）</td></tr>
+      </tbody>
+    </table>
+    <div class="cta-line">
+      <div><strong>まずは1ページから。</strong><p style="margin:4px 0 0;font-size:12px;color:#6b6b74">この試作には保存・公開・課金はありません。</p></div>
+      <a class="btn solid" href="#builder">幅を切り替えて確認する</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div><strong style="color:#16161a">rule</strong><p class="note">架空のサイトビルダーによる構成の試作です。実在のサービス・企業とは関係ありません。CMS・公開・独自ドメイン接続は実装していません。</p></div>
+    <span>sample build / 2026</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var frame = document.getElementById('frame');
+  var label = document.getElementById('wLabel');
+  var btns = Array.prototype.slice.call(document.querySelectorAll('.bp'));
+  var widths = {1200:'1200 px（縮小表示）',860:'860 px（縮小表示）',420:'420 px（縮小表示）'};
+  btns.forEach(function(b){
+    b.addEventListener('click', function(){
+      btns.forEach(function(o){ o.setAttribute('aria-pressed', String(o === b)); });
+      var w = b.dataset.w;
+      frame.dataset.w = w;
+      label.textContent = widths[w];
+      frame.style.setProperty('--flash','1');
+      setTimeout(function(){ frame.style.setProperty('--flash','0'); }, 220);
+    });
+  });
+})();
+</script>
+</body>
+</html>

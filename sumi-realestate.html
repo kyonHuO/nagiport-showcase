@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#f4f5f2">
+<title>SUMI 不動産 — 歩いて、選ぶ。</title>
+<style>
+html,body{background:#f4f5f2}
+*{box-sizing:border-box}
+body{margin:0;color:#1e2620;font:15px/1.75 "Hiragino Sans","Yu Gothic",system-ui,sans-serif}
+a{color:inherit;text-decoration:none}button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+:focus-visible{outline:2px solid #2f6b47;outline-offset:3px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 30px}
+header{background:#fff;border-bottom:1px solid #dde3d9}
+header .wrap{display:flex;align-items:center;height:68px;gap:24px}
+.brand{font-size:19px;font-weight:700;letter-spacing:.04em;color:#2f6b47}
+nav{display:flex;gap:20px;font-size:12.5px;color:#5d6b61}
+nav a:hover{color:#1e2620}
+.tel{margin-left:auto;font:600 13px/1 ui-monospace,Menlo,monospace;color:#2f6b47}
+.hero{padding:52px 0 26px}
+.hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:36px;align-items:end}
+.eyebrow{font:10px/1 ui-monospace,Menlo,monospace;letter-spacing:.18em;color:#2f6b47}
+h1{font-size:clamp(30px,4.4vw,50px);line-height:1.26;letter-spacing:-.03em;margin:12px 0}
+.lede{color:#5d6b61;font-size:13.5px;max-width:400px;line-height:1.95}
+.stat{border-left:1px solid #dde3d9;padding-left:18px;font-size:11.5px;color:#6d7b71}
+.stat b{display:block;font:800 26px/1.2 ui-monospace,Menlo,monospace;color:#1e2620;margin-bottom:2px}
+section.search{padding:28px 0 20px;border-top:1px solid #1e2620}
+h2{font-size:clamp(20px,2.4vw,26px);margin:0 0 6px}
+.sub{font-size:12.5px;color:#5d6b61;margin:0 0 16px}
+.conds{display:grid;grid-template-columns:1fr 1fr;gap:22px;border:1px solid #dde3d9;background:#fff;padding:20px}
+.conds h3{font-size:10.5px;letter-spacing:.12em;color:#7c8b81;margin:0 0 8px}
+input[type=range]{width:100%;accent-color:#2f6b47;margin:6px 0}
+.out{font:700 24px/1.2 ui-monospace,Menlo,monospace;color:#2f6b47}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{border:1px solid #cfd8cc;border-radius:999px;padding:6px 13px;font-size:11.5px;color:#5d6b61;background:#fff}
+.chip[aria-pressed=true]{background:#2f6b47;border-color:#2f6b47;color:#fff}
+.result{display:flex;align-items:center;gap:14px;border-top:1px solid #dde3d9;margin-top:18px;padding-top:16px}
+.result .n{font:800 30px/1 ui-monospace,Menlo,monospace;color:#1e2620}
+.result p{font-size:11.5px;color:#6d7b71;margin:0}
+.list{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}
+.item{border:1px solid #dde3d9;background:#fff;padding:14px;font-size:12px;color:#5d6b61}
+.item b{display:block;color:#1e2620;font-size:13px;margin-bottom:4px}
+.item .tag{display:inline-block;font:10px/1 ui-monospace,Menlo,monospace;color:#2f6b47;border:1px solid #cfd8cc;border-radius:3px;padding:2px 5px;margin-top:8px}
+.note{font-size:10.5px;color:#8b9a90;margin-top:10px}
+footer{border-top:1px solid #dde3d9;padding:22px 0 36px;font-size:10.5px;color:#7c8b81}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+@media(max-width:900px){.hero .wrap{grid-template-columns:1fr;gap:18px}.stat{border-left:0;border-top:1px solid #dde3d9;padding:12px 0 0}.conds{grid-template-columns:1fr}.list{grid-template-columns:1fr 1fr}nav{display:none}}
+@media(max-width:560px){.wrap{padding:0 16px}.list{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header><div class="wrap"><a class="brand" href="#">SUMI</a>
+<nav aria-label="メインメニュー"><a href="#search">物件</a><a href="#area">地域</a><a href="#access">店舗</a></nav>
+<span class="tel">022-000-0000</span></div></header>
+<main>
+<section class="hero"><div class="wrap">
+  <div><p class="eyebrow">LOCAL REAL ESTATE / MIYAGI</p>
+  <h1>歩いて、<br>選ぶ。</h1>
+  <p class="lede">駅からの距離と広さで、暮らしの輪郭を決める。内見の前に、徒歩の感覚を確かめてください。</p></div>
+  <div class="stat"><b>126 件</b>取扱中の賃貸（サンプル）<br>仙台市内・更新日 11/15</div>
+</div></section>
+
+<section class="search" id="search"><div class="wrap">
+  <h2>条件を動かす。</h2>
+  <p class="sub">駅徒歩と専有面積を変えると、該当件数と候補が変わります（サンプルデータ）。</p>
+  <div class="conds">
+    <div>
+      <h3>駅から徒歩</h3>
+      <output class="out" id="walkOut">10 分</output>
+      <input type="range" id="walk" min="1" max="30" value="10" aria-label="駅からの徒歩分数">
+    </div>
+    <div>
+      <h3>専有面積</h3>
+      <output class="out" id="sizeOut">35 m²</output>
+      <input type="range" id="size" min="20" max="90" value="35" step="5" aria-label="専有面積">
+      <div class="chips" style="margin-top:10px" role="group" aria-label="間取り">
+        <button class="chip" type="button" data-r="1" aria-pressed="true">1LDK以上</button>
+        <button class="chip" type="button" data-r="2" aria-pressed="false">2LDK以上</button>
+      </div>
+    </div>
+  </div>
+  <div class="result"><span class="n" id="count">18</span><p>件が条件に一致（サンプル）<br>実際の空室状況とは異なります。</p></div>
+  <div class="list" id="list"></div>
+</div></section>
+
+<section id="area"><div class="wrap" style="padding:30px 0 44px">
+  <h2 style="font-size:18px">歩いて分かること。</h2>
+  <p class="sub" style="max-width:640px">坂、商店街、バス停。数字に出ない条件は、実際に歩いて確かめます。内見は1日2件まで、担当が同行します。</p>
+</div></section>
+</main>
+<footer id="access"><div class="wrap"><span>SUMI 不動産 / sample site</span><span>物件・件数・価格は架空のサンプルです。問い合わせ送信はありません。</span></div></footer>
+<script>
+(function(){
+  var walk=document.getElementById('walk'),size=document.getElementById('size');
+  var chips=Array.prototype.slice.call(document.querySelectorAll('.chip'));
+  var rooms=1;
+  var pool=[
+    {n:'北四番丁 1LDK',w:6,s:38,p:'7.8万円'},{n:'勾当台 1DK',w:8,s:28,p:'6.2万円'},
+    {n:'長町 2LDK',w:12,s:56,p:'9.4万円'},{n:'泉中央 1LDK',w:9,s:41,p:'7.1万円'},
+    {n:'八乙女 2LDK',w:15,s:62,p:'8.8万円'},{n:'五橋 1LDK',w:4,s:35,p:'8.6万円'},
+    {n:'卸町 3LDK',w:18,s:74,p:'9.9万円'},{n:'台原 1DK',w:11,s:26,p:'5.8万円'}
+  ];
+  function paint(){
+    var w=Number(walk.value), s=Number(size.value);
+    document.getElementById('walkOut').textContent=w+' 分';
+    document.getElementById('sizeOut').textContent=s+' m²';
+    var hit=pool.filter(function(x){return x.w<=w && x.s>=s && (rooms===1 || x.s>=50);});
+    document.getElementById('count').textContent=hit.length*3;
+    var list=document.getElementById('list');list.innerHTML='';
+    hit.slice(0,3).forEach(function(x){
+      var d=document.createElement('div');d.className='item';
+      d.innerHTML='<b>'+x.n+'</b>徒歩'+x.w+'分 / '+x.s+' m²<br>'+x.p;
+      var t=document.createElement('span');t.className='tag';t.textContent='SAMPLE';d.appendChild(t);
+      list.appendChild(d);
+    });
+    if(!hit.length){var e=document.createElement('div');e.className='item';e.textContent='条件に合う候補がありません。徒歩分数を広げてください。';list.appendChild(e);}
+  }
+  walk.addEventListener('input',paint); size.addEventListener('input',paint);
+  chips.forEach(function(c){c.addEventListener('click',function(){
+    rooms=Number(c.dataset.r);
+    chips.forEach(function(o){o.setAttribute('aria-pressed',String(o===c));});
+    paint();
+  });});
+  paint();
+})();
+</script>
+</body>
+</html>

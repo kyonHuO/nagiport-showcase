@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#f3f1ea">
+<title>loop — 反応は、状態でつくる。</title>
+<style>
+html,body{background:#f3f1ea}
+*{box-sizing:border-box}
+body{margin:0;color:#131311;font:15px/1.72 -apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;cursor:pointer;background:none;border:0}
+:focus-visible{outline:2px solid #5b3df5;outline-offset:3px}
+.wrap{max-width:1200px;margin:0 auto;padding:0 32px}
+header.top{border-bottom:1px solid #dcd9cc;position:sticky;top:0;z-index:20;background:#f3f1eaee;backdrop-filter:blur(10px)}
+.top .wrap{display:flex;align-items:center;height:64px;gap:28px}
+.brand{font-size:19px;font-weight:700;letter-spacing:-.05em;display:flex;align-items:center;gap:8px}
+.brand i{width:15px;height:15px;border-radius:50%;border:2px solid #131311;display:block;position:relative}
+.brand i:after{content:"";position:absolute;inset:3px;border-radius:50%;background:#5b3df5}
+nav.main{display:flex;gap:24px;font-size:13px;color:#5b584f}
+nav.main a:hover{color:#131311}
+.top .right{margin-left:auto;display:flex;gap:14px;align-items:center;font-size:13px}
+.btn{display:inline-flex;align-items:center;gap:7px;border-radius:7px;padding:9px 16px;font-size:13px;font-weight:600;border:1px solid #131311;transition:background .16s ease,color .16s ease,transform .16s ease}
+.btn:hover{transform:translateY(-1px)}
+.btn.solid{background:#131311;color:#f7f6f0}
+.btn.solid:hover{background:#2b2b26}
+.btn.violet{background:#5b3df5;border-color:#5b3df5;color:#fff}
+.btn.violet:hover{background:#4a2fd6}
+
+.hero{padding:56px 0 20px}
+.hero .wrap{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.kicker{font:11px/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.12em;text-transform:uppercase;color:#6a665b;display:inline-flex;align-items:center;gap:9px;background:#d6f24e;padding:7px 11px;border-radius:999px;border:1px solid #c4df3c}
+h1{font-size:clamp(40px,5.4vw,72px);line-height:.98;letter-spacing:-.06em;font-weight:700;margin:20px 0}
+h1 em{font-style:normal;position:relative;display:inline-block}
+h1 em:after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:10px;background:#5b3df5;opacity:.22}
+.lede{color:#5b584f;max-width:400px;line-height:1.95;font-size:15px}
+.cta{display:flex;gap:11px;margin-top:26px;flex-wrap:wrap}
+.ticks{margin:30px 0 0;padding:0;list-style:none;font-size:12px;color:#5b584f;display:grid;gap:7px}
+.ticks li{display:flex;gap:9px;align-items:baseline}
+.ticks li:before{content:"";width:6px;height:6px;background:#5b3df5;border-radius:1px;flex:none;transform:translateY(-1px)}
+
+/* runtime */
+.runtime{border:1px solid #d5d1c2;border-radius:16px;background:#fffefb;padding:14px;box-shadow:0 28px 60px -46px #13131140}
+.rt-top{display:flex;justify-content:space-between;align-items:center;font:10px/1 ui-monospace,Menlo,monospace;letter-spacing:.1em;text-transform:uppercase;color:#7c786c;padding:2px 3px 11px}
+.badge{display:inline-flex;align-items:center;gap:6px;background:#131311;color:#d6f24e;border-radius:999px;padding:4px 10px;letter-spacing:.06em}
+.badge i{width:5px;height:5px;border-radius:50%;background:#d6f24e;display:block}
+.stage{position:relative;border-radius:11px;height:clamp(250px,28vw,310px);background:
+  radial-gradient(90% 90% at 50% 15%,#f0ecff,#e9e4fb 55%,#ece9dd);
+  display:grid;place-items:center;overflow:hidden;border:1px solid #e7e3d5}
+.stage:before{content:"";position:absolute;inset:0;background:linear-gradient(#13131108 1px,transparent 1px) 0 0/100% 34px,linear-gradient(90deg,#13131108 1px,transparent 1px) 0 0/34px 100%}
+.char{--body:#5b3df5;position:relative;z-index:1;cursor:pointer;transform-origin:50% 88%;transition:transform .26s cubic-bezier(.22,.61,.36,1)}
+.char svg{width:clamp(150px,19vw,196px);height:auto;display:block;filter:drop-shadow(0 16px 14px #4a2fd633)}
+.char .eye{transition:transform .22s ease}
+.char .mouth{transition:transform .2s ease}
+.char .lid{opacity:0;transition:opacity .18s ease}
+.rt-hover .char{transform:scale(1.05) translateY(-3px)}
+.rt-hover .char .eye{transform:translateY(-4px)}
+.rt-press .char{transform:scale(1.1,.9) translateY(5px)}
+.rt-press .char .mouth{transform:scaleY(.5)}
+.rt-press .char .lid{opacity:1}
+.char.idle{animation:float 4.2s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.rt-hover .char.idle,.rt-press .char.idle{animation:none}
+.hint{position:absolute;left:12px;bottom:10px;font-size:10px;color:#6f6a8f;z-index:2;background:#ffffffb8;border-radius:4px;padding:3px 7px}
+.state-strip{border-top:1px solid #ece9dd;margin-top:12px;padding-top:11px;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.kv{font-size:10px;color:#7c786c;letter-spacing:.04em}
+.kv b{display:block;font-size:13px;letter-spacing:-.01em;color:#131311;margin-top:2px}
+.log{grid-column:1/-1;font:10px/1.7 ui-monospace,Menlo,monospace;color:#6c6759;background:#f6f4ec;border:1px solid #ece9dd;border-radius:6px;padding:7px 9px;height:52px;overflow:hidden}
+.log div{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+section.band{padding:74px 0;border-top:1px solid #dcd9cc}
+.h2{font-size:clamp(26px,3.3vw,40px);line-height:1.22;letter-spacing:-.045em;margin:0 0 12px}
+.sub{color:#5b584f;font-size:14px;line-height:1.9;max-width:540px}
+.machine{margin-top:32px;border:1px solid #d5d1c2;border-radius:14px;background:#fffefb;padding:18px}
+.machine-head{display:flex;justify-content:space-between;align-items:center;font:10px/1 ui-monospace,Menlo,monospace;letter-spacing:.1em;text-transform:uppercase;color:#7c786c;margin-bottom:16px;flex-wrap:wrap;gap:8px}
+.nodes{display:flex;align-items:center;gap:0;flex-wrap:wrap}
+.node{border:1px solid #cfcabb;border-radius:8px;padding:11px 15px;text-align:left;min-width:112px;background:#faf9f3;transition:background .16s ease,border-color .16s ease,color .16s ease}
+.node:hover{border-color:#5b3df5}
+.node b{display:block;font-size:13px;letter-spacing:-.01em}
+.node span{font:9px/1.5 ui-monospace,Menlo,monospace;color:#7c786c;letter-spacing:.04em}
+.node[aria-pressed=true]{background:#131311;border-color:#131311;color:#f7f6f0}
+.node[aria-pressed=true] span{color:#c9c4b4}
+.arrow{width:46px;height:1px;background:#c9c4b4;position:relative;flex:none}
+.arrow:after{content:"";position:absolute;right:-1px;top:-3px;border-left:5px solid #c9c4b4;border-top:3.5px solid transparent;border-bottom:3.5px solid transparent}
+.arrow small{position:absolute;top:-16px;left:0;width:100%;text-align:center;font:8px/1 ui-monospace,Menlo,monospace;color:#8b8779;letter-spacing:.03em}
+.machine-note{font-size:11px;color:#7c786c;margin-top:14px}
+
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:32px}
+.card{border:1px solid #dcd9cc;border-radius:12px;padding:22px;background:#faf9f3}
+.card .n{font:11px/1 ui-monospace,Menlo,monospace;color:#5b3df5;letter-spacing:.1em}
+.card h3{font-size:16px;margin:12px 0 6px;letter-spacing:-.02em}
+.card p{font-size:12.5px;color:#5b584f;margin:0;line-height:1.85}
+.pair{display:grid;grid-template-columns:1.05fr .95fr;gap:34px;align-items:center;margin-top:30px}
+pre{background:#131311;color:#e9e6da;border-radius:10px;padding:18px;overflow-x:auto;font:12px/1.9 ui-monospace,SFMono-Regular,Menlo,monospace;margin:0}
+pre .k{color:#d6f24e}pre .v{color:#a99bff}pre .c{color:#7f7b6c}
+footer{border-top:1px solid #dcd9cc;padding:32px 0 42px;font-size:11px;color:#7c786c}
+footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.note{max-width:520px;line-height:1.8}
+@media(max-width:940px){
+ .hero .wrap{grid-template-columns:1fr;gap:32px}
+ .grid3{grid-template-columns:1fr}
+ .pair{grid-template-columns:1fr;gap:22px}
+ nav.main{display:none}
+ .node{min-width:0;flex:1 1 40%}
+ .arrow{display:none}
+ .nodes{gap:8px}
+}
+@media(max-width:560px){
+ .wrap{padding:0 20px}
+ .top .right .btn:not(.solid){display:none}
+ .state-strip{grid-template-columns:1fr}
+ .hint{font-size:9px}
+}
+@media(prefers-reduced-motion:reduce){
+ *,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+ .char.idle{animation:none}
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#"><i aria-hidden="true"></i>loop</a>
+    <nav class="main" aria-label="メインメニュー"><a href="#runtime">ランタイム</a><a href="#machine">状態</a><a href="#how">書き方</a></nav>
+    <div class="right"><a href="#runtime">ログイン</a><a class="btn solid" href="#runtime">触ってみる</a></div>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <span class="kicker">interaction runtime</span>
+      <h1>反応は、<br><em>状態</em>でつくる。</h1>
+      <p class="lede">待つ・近づく・押す。3つの状態と、その間の動きだけで、触り心地は十分につくれます。</p>
+      <div class="cta">
+        <a class="btn violet" href="#runtime">キャラクターを触る</a>
+        <a class="btn" href="#machine">状態の図を見る</a>
+      </div>
+      <ul class="ticks">
+        <li>ホバーと押下で、実際に形が変わります</li>
+        <li>状態名とイベントが右下に記録されます</li>
+        <li>動きを減らす設定では、形の変化だけ残します</li>
+      </ul>
+    </div>
+
+    <div class="runtime" id="runtime">
+      <div class="rt-top"><span>runtime / preview</span><span class="badge"><i aria-hidden="true"></i><span id="badgeText">idle</span></span></div>
+      <div class="stage" id="stage">
+        <div class="char idle" id="char" role="button" tabindex="0" aria-label="キャラクター。ホバーと押下で状態が変わります">
+          <svg viewBox="0 0 200 210" aria-hidden="true">
+            <defs>
+              <linearGradient id="body" x1=".2" y1="0" x2=".8" y2="1">
+                <stop offset="0" stop-color="#7a5cff"/><stop offset="1" stop-color="#4a2fd6"/>
+              </linearGradient>
+            </defs>
+            <ellipse cx="100" cy="196" rx="46" ry="7" fill="#4a2fd624"/>
+            <path d="M100 20c46 0 72 30 72 74 0 44-30 78-72 78S28 138 28 94c0-44 26-74 72-74Z" fill="url(#body)"/>
+            <path d="M74 34c10-12 42-14 54 0-8 10-44 12-54 0Z" fill="#d6f24e"/>
+            <ellipse cx="78" cy="84" rx="9" ry="11" fill="#fffefb" class="eye"/>
+            <ellipse cx="122" cy="84" rx="9" ry="11" fill="#fffefb" class="eye"/>
+            <circle cx="80" cy="87" r="4" fill="#131311" class="eye"/>
+            <circle cx="124" cy="87" r="4" fill="#131311" class="eye"/>
+            <rect x="70" y="80" width="18" height="9" rx="4" fill="#4a2fd6" class="lid"/>
+            <rect x="114" y="80" width="18" height="9" rx="4" fill="#4a2fd6" class="lid"/>
+            <path d="M86 122q14 12 28 0" stroke="#fffefb" stroke-width="4" fill="none" stroke-linecap="round" class="mouth"/>
+            <circle cx="58" cy="112" r="7" fill="#ff9ec7" opacity=".55"/>
+            <circle cx="142" cy="112" r="7" fill="#ff9ec7" opacity=".55"/>
+            <path d="M100 150v18" stroke="#d6f24e" stroke-width="3" stroke-linecap="round" opacity=".8"/>
+          </svg>
+        </div>
+        <span class="hint">ホバー / クリック / キーボードのEnter</span>
+      </div>
+      <div class="state-strip">
+        <div class="kv">現在の状態<b id="stateName">idle / 待機</b></div>
+        <div class="kv">最後のイベント<b id="lastEvent">machine.enter</b></div>
+        <div class="log" id="log" aria-live="polite"><div>machine.enter → idle</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="machine">
+  <div class="wrap">
+    <h2 class="h2">状態は、4つで足りる。</h2>
+    <p class="sub">ノードを押すと、その状態に切り替わります。実際のキャラクターも上の画面で同時に変わります。</p>
+    <div class="machine">
+      <div class="machine-head"><span>state machine / demo</span><span>入力: pointer, keyboard</span></div>
+      <div class="nodes" role="group" aria-label="状態の切り替え">
+        <button class="node" type="button" data-state="idle" aria-pressed="true"><b>idle</b><span>待機・ゆっくり浮く</span></button>
+        <span class="arrow" aria-hidden="true"><small>enter</small></span>
+        <button class="node" type="button" data-state="hover" aria-pressed="false"><b>hover</b><span>近づく・目が上がる</span></button>
+        <span class="arrow" aria-hidden="true"><small>press</small></span>
+        <button class="node" type="button" data-state="press" aria-pressed="false"><b>press</b><span>沈む・目を閉じる</span></button>
+        <span class="arrow" aria-hidden="true"><small>release</small></span>
+        <button class="node" type="button" data-state="release" aria-pressed="false"><b>release</b><span>戻る・少し伸びる</span></button>
+      </div>
+      <p class="machine-note">※ノードはデモ用の操作盤です。実際の入力（ホバー・押下）でも同じ状態に切り替わります。</p>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="how">
+  <div class="wrap">
+    <h2 class="h2">動きの前に、<br>状態の名前を決める。</h2>
+    <p class="sub">「かわいく動かす」ではなく、「どの状態から、どの入力で、どこへ移るか」。先に決めると、動きは自然に短くなります。</p>
+    <div class="grid3">
+      <article class="card"><span class="n">01 / NAME</span><h3>名前は動詞で</h3><p>idle・hover・press。形容詞より、起きたことをそのまま書く。</p></article>
+      <article class="card"><span class="n">02 / INPUT</span><h3>入力を1つに絞る</h3><p>同じ状態へ複数の入力が来ると、戻り方がわからなくなる。</p></article>
+      <article class="card"><span class="n">03 / EXIT</span><h3>戻り道を先に</h3><p>release を必ず用意する。抜けられない状態を作らない。</p></article>
+    </div>
+    <div class="pair">
+      <div>
+        <h3 style="font-size:19px;margin:0 0 8px;letter-spacing:-.02em">状態は、そのまま渡せる</h3>
+        <p class="sub" style="margin-bottom:14px">ノードと入力の対応を、設定として書き出します。実装側と言葉がずれません。</p>
+        <a class="btn" href="#machine">図に戻る</a>
+      </div>
+      <pre><span class="c">// loop.state.json</span>
+{
+  <span class="k">"idle"</span>:  { <span class="v">on</span>: { hover: <span class="k">"hover"</span> } },
+  <span class="k">"hover"</span>: { <span class="v">on</span>: { down:  <span class="k">"press"</span>,
+               leave: <span class="k">"idle"</span> } },
+  <span class="k">"press"</span>: { <span class="v">on</span>: { up:    <span class="k">"release"</span> } },
+  <span class="k">"release"</span>:{ <span class="v">after</span>: <span class="k">"idle"</span> }
+}</pre>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div><strong style="color:#131311">loop</strong><p class="note">架空のインタラクション制作ツールによる構成の試作です。実在のサービス・企業とは関係ありません。書き出し・共有・課金は行いません。キャラクターは自作の図形です。</p></div>
+    <span>sample build / 2026</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var char = document.getElementById('char');
+  var stage = document.getElementById('stage');
+  var badge = document.getElementById('badgeText');
+  var stateName = document.getElementById('stateName');
+  var lastEvent = document.getElementById('lastEvent');
+  var logBox = document.getElementById('log');
+  var nodes = Array.prototype.slice.call(document.querySelectorAll('.node'));
+  var labels = {idle:'idle / 待機', hover:'hover / 近づく', press:'press / 押下', release:'release / 戻り'};
+  var timer = null;
+  var held = false;
+
+  function log(text){
+    var d = document.createElement('div');
+    d.textContent = text;
+    logBox.insertBefore(d, logBox.firstChild);
+    while (logBox.children.length > 3) logBox.removeChild(logBox.lastChild);
+  }
+
+  function set(state, event){
+    stage.classList.remove('rt-hover','rt-press');
+    if (state === 'hover') stage.classList.add('rt-hover');
+    if (state === 'press') stage.classList.add('rt-press');
+    char.classList.toggle('idle', state === 'idle' || state === 'hover' || state === 'release');
+    badge.textContent = state;
+    stateName.textContent = labels[state];
+    lastEvent.textContent = event;
+    log(event + ' → ' + state);
+    nodes.forEach(function(n){ n.setAttribute('aria-pressed', String(n.dataset.state === state)); });
+  }
+
+  nodes.forEach(function(n){
+    n.addEventListener('click', function(){
+      clearTimeout(timer);
+      set(n.dataset.state, 'machine.' + n.dataset.state);
+      if (n.dataset.state === 'release') timer = setTimeout(function(){ set('idle','machine.enter'); }, 600);
+    });
+  });
+
+  char.addEventListener('mouseenter', function(){ set('hover','pointer.enter'); });
+  char.addEventListener('mouseleave', function(){ clearTimeout(timer); held = false; set('idle','pointer.leave'); });
+  char.addEventListener('pointerdown', function(){ held = true; set('press','pointer.down'); });
+  char.addEventListener('pointerup', function(){
+    held = false;
+    set('release','pointer.up');
+    clearTimeout(timer);
+    timer = setTimeout(function(){ set('idle','machine.enter'); }, 620);
+  });
+  char.addEventListener('keydown', function(e){
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); held = true; set('press','key.down'); }
+  });
+  char.addEventListener('keyup', function(e){
+    if (e.key === 'Enter' || e.key === ' ') {
+      held = false;
+      set('release','key.up');
+      clearTimeout(timer);
+      timer = setTimeout(function(){ set('idle','machine.enter'); }, 620);
+    }
+  });
+  char.addEventListener('focus', function(){ if (!held) set('hover','focus.enter'); });
+  char.addEventListener('blur', function(){ clearTimeout(timer); held = false; set('idle','focus.leave'); });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#f2f4ee">
+<title>MORI ヨガ — 呼吸の長さで、選ぶ。</title>
+<style>
+html,body{background:#f2f4ee}
+*{box-sizing:border-box}
+body{margin:0;color:#1c2620;font:15px/1.75 "Hiragino Sans","Yu Gothic",-apple-system,sans-serif}
+a{color:inherit;text-decoration:none}button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+:focus-visible{outline:2px solid #4a6b52;outline-offset:3px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 32px}
+header{border-bottom:1px solid #dde3d7;background:#f2f4eef2;backdrop-filter:blur(8px);position:sticky;top:0;z-index:20}
+header .wrap{display:flex;align-items:center;height:68px;gap:26px}
+.brand{font-size:18px;font-weight:700;letter-spacing:.04em;display:flex;align-items:center;gap:8px}
+.brand i{width:16px;height:16px;border-radius:50% 2px 50% 50%;background:#4a6b52;display:block;transform:rotate(45deg)}
+nav{display:flex;gap:20px;font-size:12px;color:#5d6c60}
+nav a:hover{color:#1c2620}
+.right{margin-left:auto;display:flex;gap:12px;align-items:center;font-size:12px}
+.btn{background:#2f4a37;color:#f4f7f0;padding:10px 17px;border-radius:999px;font-size:12px;transition:background .16s ease}
+.btn:hover{background:#3d5f47}
+.btn.line{background:transparent;color:#2f4a37;border:1px solid #bcccb6}
+
+.hero{padding:56px 0 26px}
+.hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:44px;align-items:center}
+.k{font:10px/1 ui-monospace,Menlo,monospace;letter-spacing:.2em;color:#5d7c63}
+h1{font-size:clamp(32px,4.4vw,54px);line-height:1.24;letter-spacing:-.035em;margin:16px 0 18px;font-weight:700}
+.lede{color:#4f5f52;font-size:13.5px;max-width:400px;line-height:1.95}
+.cta{display:flex;gap:10px;margin-top:24px;flex-wrap:wrap}
+.breath{aspect-ratio:1;width:100%;max-width:300px;margin-left:auto;position:relative;display:grid;place-items:center}
+.breath .ring{position:absolute;border-radius:50%;border:1px solid #c8d5c1}
+.breath .r1{width:100%;height:100%}
+.breath .r2{width:72%;height:72%;background:#e2e9da}
+.breath .r3{width:44%;height:44%;background:#cad8c1}
+.breath span{position:relative;font:10px/1.8 ui-monospace,Menlo,monospace;color:#54705a;letter-spacing:.14em;text-align:center}
+
+section.schedule{padding:34px 0 58px}
+.head{display:flex;justify-content:space-between;align-items:end;gap:20px;border-top:1px solid #1c2620;padding-top:14px;flex-wrap:wrap}
+.h2{font-size:clamp(22px,2.8vw,30px);margin:0;letter-spacing:-.02em}
+.sub{font-size:12px;color:#5d6c60;margin:6px 0 0}
+.days{display:flex;gap:4px;margin-top:20px;overflow-x:auto;padding-bottom:2px}
+.day{border:1px solid #cfd9c8;border-radius:999px;padding:7px 14px;font-size:11.5px;color:#5d6c60;white-space:nowrap;background:#fff}
+.day[aria-pressed=true]{background:#2f4a37;border-color:#2f4a37;color:#f4f7f0}
+.day small{font-size:9px;display:block;color:#93a294;text-align:center}
+.day[aria-pressed=true] small{color:#c6d6c0}
+
+.list{margin-top:18px;border-top:1px solid #dde3d7}
+.cls{display:grid;grid-template-columns:64px 1fr 118px 96px;gap:14px;align-items:center;width:100%;text-align:left;padding:15px 6px;border-bottom:1px solid #dde3d7;transition:background .15s ease}
+.cls:hover{background:#e9eee3}
+.cls[aria-pressed=true]{background:#2f4a37;color:#f4f7f0}
+.time{font:600 14px/1.4 ui-monospace,Menlo,monospace;letter-spacing:-.02em}
+.cls h3{font-size:14px;margin:0;font-weight:600;letter-spacing:-.01em}
+.cls p{font-size:11px;color:#67776b;margin:2px 0 0;line-height:1.6}
+.cls[aria-pressed=true] p{color:#c6d6c0}
+.dots{display:flex;gap:3px;justify-content:flex-end}
+.dots i{width:7px;height:7px;border-radius:50%;background:#cfd9c8;display:block}
+.dots i.f{background:#6f9276}
+.cls[aria-pressed=true] .dots i{background:#5d7c63}
+.cls[aria-pressed=true] .dots i.f{background:#cfe3c9}
+.cap{font-size:10px;color:#7c8b7f;text-align:right}
+.cls[aria-pressed=true] .cap{color:#c6d6c0}
+.cls[hidden]{display:none}
+
+.summary{display:grid;grid-template-columns:1.1fr .9fr;gap:26px;margin-top:24px;border:1px solid #cfd9c8;background:#fbfcf8;padding:20px}
+.summary h4{font-size:10px;letter-spacing:.12em;color:#7c8b7f;margin:0 0 8px;font-weight:600}
+.summary .big{font-size:20px;letter-spacing:-.02em;margin:0 0 6px}
+.summary p{font-size:12px;color:#4f5f52;margin:0;line-height:1.9}
+.info{font:11px/1.9 ui-monospace,Menlo,monospace;color:#5d6c60}
+.info b{color:#1c2620;font-weight:600}
+.note{font-size:10.5px;color:#8b9a8d;margin-top:10px}
+.notes{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:40px;border-top:1px solid #dde3d7;padding-top:18px}
+.notes div b{display:block;font-size:13px;margin-bottom:4px}
+.notes div p{font-size:11.5px;color:#5d6c60;margin:0;line-height:1.85}
+footer{border-top:1px solid #dde3d7;padding:24px 0 38px;font-size:10.5px;color:#8b9a8d}
+footer .wrap{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap}
+@media(max-width:940px){
+ .hero .wrap{grid-template-columns:1fr;gap:20px}
+ .breath{max-width:220px;margin:0}
+ .summary{grid-template-columns:1fr;gap:14px}
+ .notes{grid-template-columns:1fr;gap:14px}
+ nav{display:none}
+ .cls{grid-template-columns:56px 1fr 84px}
+ .cap{display:none}
+}
+@media(max-width:560px){
+ .wrap{padding:0 20px}
+ .cls{grid-template-columns:52px 1fr;gap:10px}
+ .dots{grid-column:2;justify-content:flex-start;margin-top:4px}
+ .right .btn.line{display:none}
+}
+@media(prefers-reduced-motion:reduce){*{transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="brand" href="#"><i aria-hidden="true"></i>MORI</a>
+    <nav aria-label="メインメニュー"><a href="#schedule">時間割</a><a href="#studio">スタジオ</a><a href="#access">料金</a></nav>
+    <div class="right"><a href="#schedule" class="btn line">体験</a><a href="#access" class="btn">予約する</a></div>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <p class="k">YOGA / SMALL CLASS</p>
+      <h1>呼吸の長さで、<br>クラスを選ぶ。</h1>
+      <p class="lede">1クラス8名まで。強度より、呼吸が整うかどうかで選べるように、時間割に目安を書いています。</p>
+      <div class="cta"><a class="btn" href="#schedule">今日の時間割</a><a class="btn line" href="#studio">スタジオを見る</a></div>
+    </div>
+    <div class="breath" aria-hidden="true">
+      <span>吸う 4<br>止める 2<br>吐く 6</span>
+      <span class="ring r1"></span><span class="ring r2"></span><span class="ring r3"></span>
+    </div>
+  </div>
+</section>
+
+<section class="schedule" id="schedule">
+  <div class="wrap">
+    <div class="head">
+      <div><h2 class="h2">今週の時間割。</h2><p class="sub">曜日を選ぶと、その日のクラスに絞られます。クラスを選ぶと残席が下に出ます。</p></div>
+    </div>
+
+    <div class="days" role="group" aria-label="曜日を選ぶ" id="days">
+      <button class="day" type="button" data-d="月" aria-pressed="true">月<small>11/16</small></button>
+      <button class="day" type="button" data-d="火" aria-pressed="false">火<small>11/17</small></button>
+      <button class="day" type="button" data-d="水" aria-pressed="false">水<small>11/18</small></button>
+      <button class="day" type="button" data-d="木" aria-pressed="false">木<small>11/19</small></button>
+      <button class="day" type="button" data-d="金" aria-pressed="false">金<small>11/20</small></button>
+      <button class="day" type="button" data-d="土" aria-pressed="false">土<small>11/21</small></button>
+    </div>
+
+    <div class="list" id="list" role="group" aria-label="クラスを選ぶ">
+      <button class="cls" type="button" data-day="月" data-i="0" aria-pressed="true">
+        <span class="time">07:30</span>
+        <span><h3>朝の呼吸</h3><p>45分 / 強度1 / 呼吸を整える</p></span>
+        <span class="dots"><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i></i><i></i><i></i><i></i></span>
+        <span class="cap">残り4 / 8</span>
+      </button>
+      <button class="cls" type="button" data-day="月" data-i="1" aria-pressed="false">
+        <span class="time">12:15</span>
+        <span><h3>昼のストレッチ</h3><p>30分 / 強度1 / 座り仕事向け</p></span>
+        <span class="dots"><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i></i><i></i></span>
+        <span class="cap">残り2 / 8</span>
+      </button>
+      <button class="cls" type="button" data-day="月" data-i="2" aria-pressed="false">
+        <span class="time">19:00</span>
+        <span><h3>夜のゆるやか</h3><p>60分 / 強度2 / 一日の終わりに</p></span>
+        <span class="dots"><i class="f"></i><i class="f"></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+        <span class="cap">残り6 / 8</span>
+      </button>
+      <button class="cls" type="button" data-day="火" data-i="3" aria-pressed="false">
+        <span class="time">08:00</span>
+        <span><h3>朝の呼吸</h3><p>45分 / 強度1 / 呼吸を整える</p></span>
+        <span class="dots"><i class="f"></i><i class="f"></i><i class="f"></i><i></i><i></i><i></i><i></i><i></i></span>
+        <span class="cap">残り5 / 8</span>
+      </button>
+      <button class="cls" type="button" data-day="火" data-i="4" aria-pressed="false">
+        <span class="time">18:30</span>
+        <span><h3>骨盤と背中</h3><p>60分 / 強度2 / 姿勢を整える</p></span>
+        <span class="dots"><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i></i></span>
+        <span class="cap">残り1 / 8</span>
+      </button>
+      <button class="cls" type="button" data-day="水" data-i="5" aria-pressed="false">
+        <span class="time">10:00</span>
+        <span><h3>ゆっくり90</h3><p>90分 / 強度1 / 長く伸ばす</p></span>
+        <span class="dots"><i class="f"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+        <span class="cap">残り7 / 8</span>
+      </button>
+      <button class="cls" type="button" data-day="木" data-i="6" aria-pressed="false">
+        <span class="time">07:30</span>
+        <span><h3>朝の呼吸</h3><p>45分 / 強度1 / 呼吸を整える</p></span>
+        <span class="dots"><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i></i><i></i><i></i></span>
+        <span class="cap">残り3 / 8</span>
+      </button>
+      <button class="cls" type="button" data-day="金" data-i="7" aria-pressed="false">
+        <span class="time">19:30</span>
+        <span><h3>金曜の陰ヨガ</h3><p>75分 / 強度1 / 長く保つ</p></span>
+        <span class="dots"><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i></i><i></i><i></i><i></i></span>
+        <span class="cap">残り4 / 8</span>
+      </button>
+      <button class="cls" type="button" data-day="土" data-i="8" aria-pressed="false">
+        <span class="time">09:30</span>
+        <span><h3>週末の陽ヨガ</h3><p>75分 / 強度3 / しっかり動く</p></span>
+        <span class="dots"><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i></span>
+        <span class="cap">満席</span>
+      </button>
+    </div>
+
+    <div class="summary">
+      <div>
+        <h4>選択中</h4>
+        <p class="big" id="sName">朝の呼吸 / 07:30</p>
+        <p id="sDesc">月曜 45分・強度1。呼吸を整えるクラスです。残り4席。</p>
+        <p class="note" id="sNote">※この画面は予約デモです。送信・決済は行いません。</p>
+      </div>
+      <div>
+        <h4>料金（サンプル）</h4>
+        <div class="info">都度 <b>¥2,200</b><br>4回チケット <b>¥7,800</b><br>月額 <b>¥12,000</b>（8回まで）</div>
+        <p class="note">初回は体験 ¥1,000。当日でも空席があれば入れます。</p>
+      </div>
+    </div>
+
+    <div class="notes" id="studio">
+      <div><b>8名まで</b><p>少人数なので、ポーズを直す時間があります。</p></div>
+      <div><b>貸し出し</b><p>マット・ブロックは無料。手ぶらで来られます。</p></div>
+      <div><b>朝と夜</b><p>仕事の前後に寄れる時間だけ。昼は30分の短い枠。</p></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer id="access">
+  <div class="wrap"><span>MORI YOGA / sample studio site</span><span>教室名・時間割・料金は架空です。予約・決済はありません。</span></div>
+</footer>
+
+<script>
+(function(){
+  var days = Array.prototype.slice.call(document.querySelectorAll('.day'));
+  var classes = Array.prototype.slice.call(document.querySelectorAll('.cls'));
+  var cur = classes[0];
+  function showDay(d, btn){
+    days.forEach(function(o){ o.setAttribute('aria-pressed', String(o === btn)); });
+    classes.forEach(function(c){ c.hidden = c.dataset.day !== d; });
+    var visible = classes.filter(function(c){ return c.dataset.day === d; });
+    if (visible.length) select(visible[0]);
+  }
+  function select(c){
+    cur = c;
+    classes.forEach(function(o){ o.setAttribute('aria-pressed', String(o === c)); });
+    var name = c.querySelector('h3').textContent;
+    var time = c.querySelector('.time').textContent;
+    var desc = c.querySelector('p').textContent;
+    var cap = c.querySelector('.cap').textContent;
+    document.getElementById('sName').textContent = name + ' / ' + time;
+    document.getElementById('sDesc').textContent = c.dataset.day + '曜 ' + desc + '。' + cap + '。';
+    document.getElementById('sNote').textContent = cap === '満席'
+      ? '※この画面は予約デモです。満席のため選択できません（表示のみ）。'
+      : '※この画面は予約デモです。送信・決済は行いません。';
+  }
+  days.forEach(function(b){ b.addEventListener('click', function(){ showDay(b.dataset.d, b); }); });
+  classes.forEach(function(c){ c.addEventListener('click', function(){ select(c); }); });
+  showDay('月', days[0]);
+})();
+</script>
+</body>
+</html>

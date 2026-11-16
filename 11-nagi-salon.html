@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#f6f2ec">
+<title>NAGI 表参道 — 切りっぱなしの、いちばんいい形。</title>
+<style>
+html,body{background:#f6f2ec}
+*{box-sizing:border-box}
+body{margin:0;color:#22201d;font:15px/1.78 "Hiragino Sans","Yu Gothic",-apple-system,sans-serif}
+a{color:inherit;text-decoration:none}button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+:focus-visible{outline:2px solid #8a6a4f;outline-offset:3px}
+.wrap{max-width:1160px;margin:0 auto;padding:0 32px}
+header{border-bottom:1px solid #e2dbd0}
+header .wrap{display:flex;align-items:center;height:70px;gap:28px}
+.brand{font-size:20px;letter-spacing:.26em;font-weight:600}
+nav{display:flex;gap:22px;font-size:12px;color:#6f675c}
+nav a:hover{color:#22201d}
+.right{margin-left:auto;display:flex;gap:14px;align-items:center;font-size:12px}
+.btn{background:#22201d;color:#f6f2ec;border-radius:2px;padding:10px 18px;font-size:12px;letter-spacing:.04em;transition:background .18s ease}
+.btn:hover{background:#423d36}
+.btn.line{background:transparent;color:#22201d;border:1px solid #cfc6b8}
+.btn.line:hover{background:#eae3d8}
+
+.hero{padding:58px 0 44px}
+.hero .wrap{display:grid;grid-template-columns:.95fr 1.05fr;gap:44px;align-items:center}
+.tag{font:10px/1 ui-monospace,Menlo,monospace;letter-spacing:.2em;color:#8a6a4f}
+h1{font-size:clamp(32px,4.4vw,52px);line-height:1.36;letter-spacing:-.02em;font-weight:400;margin:16px 0 18px;font-family:"Hiragino Mincho ProN","Yu Mincho",serif}
+.lede{color:#5f584e;font-size:13px;max-width:380px;line-height:2}
+.cta{display:flex;gap:10px;margin-top:24px;flex-wrap:wrap}
+.info{display:flex;gap:26px;margin-top:30px;font-size:11px;color:#8a8276;flex-wrap:wrap}
+.info b{display:block;color:#22201d;font-size:12.5px;font-weight:500}
+.ph{aspect-ratio:4/5;background:
+ radial-gradient(75% 60% at 70% 22%,#f3e6d4,transparent 70%),
+ linear-gradient(160deg,#cbb69a,#9c7f60 55%,#5f4a36);position:relative;overflow:hidden}
+.ph:after{content:"";position:absolute;inset:0;background:linear-gradient(to top,#00000033,transparent 55%)}
+.ph span{position:absolute;left:14px;bottom:12px;font-size:10px;letter-spacing:.14em;color:#fff8ea;z-index:1}
+
+.booking{border-top:1px solid #22201d;padding-top:16px;margin-top:6px}
+.b-head{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap}
+.h2{font-size:clamp(22px,2.6vw,30px);letter-spacing:-.02em;margin:0;font-weight:500;font-family:"Hiragino Mincho ProN",serif}
+.sub{color:#6f675c;font-size:12px;margin:6px 0 0}
+.grid{display:grid;grid-template-columns:1.05fr .95fr;gap:34px;margin-top:24px}
+.menus{list-style:none;margin:0;padding:0;border-top:1px solid #e2dbd0}
+.menus li{border-bottom:1px solid #e2dbd0}
+.menus button{display:grid;grid-template-columns:1fr auto;gap:4px 16px;width:100%;text-align:left;padding:14px 2px;align-items:baseline;transition:padding .18s ease,background .18s ease}
+.menus button:hover{padding-left:8px;background:#efe9df}
+.menus button[aria-pressed=true]{padding-left:8px;background:#22201d;color:#f6f2ec}
+.menus .n{grid-column:1;grid-row:1;font-size:14px}
+.menus .d{grid-column:1/-1;grid-row:2;font-size:11px;color:#8a8276;margin-top:0}
+.menus button[aria-pressed=true] .d{color:#c3bbae}
+.menus .p{grid-column:2;grid-row:1;text-align:right;font-size:13px;font-variant-numeric:tabular-nums}
+.slot-box{border:1px solid #e2dbd0;background:#fbf8f3;padding:20px}
+.slot-box h3{font-size:11px;letter-spacing:.12em;color:#8a8276;margin:0 0 12px;font-weight:600}
+.slots{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.slot{border:1px solid #d8cfc1;padding:9px 0;font-size:12px;font-variant-numeric:tabular-nums;color:#3d3831;background:#fff}
+.slot:hover{border-color:#8a6a4f}
+.slot[aria-pressed=true]{background:#22201d;border-color:#22201d;color:#f6f2ec}
+.slot:disabled{color:#bdb5a7;border-style:dashed;background:#f4efe6;cursor:default;text-decoration:line-through}
+.summary{margin-top:16px;border-top:1px solid #e2dbd0;padding-top:14px;font-size:12px;color:#5f584e}
+.summary div{display:flex;justify-content:space-between;padding:5px 0}
+.summary b{font-weight:500;color:#22201d}
+.summary .total{border-top:1px solid #e2dbd0;margin-top:8px;padding-top:9px;font-size:14px}
+.rule{font-size:10.5px;color:#9a9286;margin-top:12px;line-height:1.7}
+
+.strip{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:52px 0 0}
+.svc{border-top:1px solid #e2dbd0;padding-top:12px}
+.svc b{display:block;font-size:13px;font-weight:500;margin-bottom:4px}
+.svc p{font-size:11.5px;color:#6f675c;margin:0;line-height:1.85}
+footer{border-top:1px solid #e2dbd0;margin-top:46px;padding:24px 0 38px;font-size:10.5px;color:#8a8276}
+footer .wrap{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap}
+@media(max-width:900px){
+ .hero .wrap{grid-template-columns:1fr;gap:26px}
+ .grid{grid-template-columns:1fr;gap:20px}
+ .strip{grid-template-columns:1fr;gap:0}
+ nav{display:none}
+}
+@media(max-width:560px){
+ .wrap{padding:0 20px}
+ .slots{grid-template-columns:repeat(3,1fr)}
+ .right .btn.line{display:none}
+}
+@media(prefers-reduced-motion:reduce){*{transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="brand" href="#">NAGI</a>
+    <nav aria-label="メインメニュー"><a href="#menu">メニュー</a><a href="#studio">店舗</a><a href="#access">アクセス</a></nav>
+    <div class="right"><a href="#access" class="btn line">電話する</a><a href="#menu" class="btn">予約する</a></div>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <p class="tag">HAIR SALON / OMOTESANDO</p>
+      <h1>切りっぱなしの、<br>いちばんいい形。</h1>
+      <p class="lede">乾かしたときの輪郭から逆算して切ります。朝の5分で決まる髪を、一緒に探す店です。</p>
+      <div class="cta"><a class="btn" href="#menu">空き時間を見る</a><a class="btn line" href="#studio">料金表</a></div>
+      <div class="info">
+        <div><b>11:00–20:00</b>火曜定休</div>
+        <div><b>4 席</b>完全予約制</div>
+        <div><b>表参道</b>駅から4分</div>
+      </div>
+    </div>
+    <div class="ph"><span>SALON / SAMPLE IMAGE</span></div>
+  </div>
+</section>
+
+<section class="booking" id="menu">
+  <div class="wrap">
+    <div class="b-head">
+      <div><h2 class="h2">メニューと空き時間。</h2><p class="sub">メニューを選ぶと、所要時間と料金が下にまとまります。時間を選ぶと、その枠が確定します。</p></div>
+    </div>
+
+    <div class="grid">
+      <ul class="menus" role="group" aria-label="メニューを選ぶ">
+        <li><button type="button" data-i="0" aria-pressed="true"><span class="n">カット</span><span class="p">¥5,500</span><span class="d">シャンプー・ブロー込み / 60分</span></button></li>
+        <li><button type="button" data-i="1" aria-pressed="false"><span class="n">カット＋カラー</span><span class="p">¥9,800</span><span class="d">白髪染めも同料金 / 110分</span></button></li>
+        <li><button type="button" data-i="2" aria-pressed="false"><span class="n">カット＋パーマ</span><span class="p">¥12,000</span><span class="d">痛みが気になる方は要相談 / 130分</span></button></li>
+        <li><button type="button" data-i="3" aria-pressed="false"><span class="n">前髪カットのみ</span><span class="p">¥1,650</span><span class="d">15分 / 当日枠あり</span></button></li>
+      </ul>
+
+      <div class="slot-box">
+        <h3>11月16日（月）の空き</h3>
+        <div class="slots" id="slots" role="group" aria-label="時間を選ぶ"></div>
+        <div class="summary">
+          <div><span>メニュー</span><b id="sumMenu">カット</b></div>
+          <div><span>所要時間</span><b id="sumTime">60 分</b></div>
+          <div><span>担当</span><b>指名なし</b></div>
+          <div class="total"><span>合計（税込・サンプル）</span><b id="sumPrice">¥5,500</b></div>
+        </div>
+        <p class="rule">※この画面は予約デモです。送信・確定・決済は行いません。表示の空き時間は架空のサンプルです。</p>
+      </div>
+    </div>
+
+    <div class="strip" id="studio">
+      <div class="svc"><b>カウンセリング</b><p>髪のクセと朝の時間を聞いてから、切る量を決めます。15分。</p></div>
+      <div class="svc"><b>シャンプー</b><p>香りの強いものは使いません。頭皮に合わせて選びます。</p></div>
+      <div class="svc"><b>アフター</b><p>乾かし方のメモをお渡しします。次回までに一度試してみてください。</p></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer id="access">
+  <div class="wrap"><span>NAGI / sample salon site</span><span>店名・料金・空き時間はすべて架空のサンプルです。</span></div>
+</footer>
+
+<script>
+(function(){
+  var menus = [
+    {n:'カット', t:60, p:5500},
+    {n:'カット＋カラー', t:110, p:9800},
+    {n:'カット＋パーマ', t:130, p:12000},
+    {n:'前髪カットのみ', t:15, p:1650}
+  ];
+  var times = ['11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00','19:00'];
+  var sold = ['13:00','17:00'];
+  var cur = 0, picked = null;
+  var slots = document.getElementById('slots');
+  var btns = Array.prototype.slice.call(document.querySelectorAll('.menus button'));
+
+  times.forEach(function(t){
+    var b = document.createElement('button');
+    b.type = 'button'; b.className = 'slot'; b.textContent = t;
+    b.setAttribute('aria-pressed','false');
+    if (sold.indexOf(t) >= 0) { b.disabled = true; b.setAttribute('aria-label', t + ' 満席'); }
+    b.addEventListener('click', function(){
+      picked = t;
+      Array.prototype.forEach.call(slots.children, function(o){ o.setAttribute('aria-pressed', String(o === b)); });
+      update();
+    });
+    slots.appendChild(b);
+  });
+
+  function update(){
+    var m = menus[cur];
+    document.getElementById('sumMenu').textContent = picked ? m.n + ' / ' + picked + '〜' : m.n;
+    document.getElementById('sumTime').textContent = m.t + ' 分';
+    document.getElementById('sumPrice').textContent = '¥' + m.p.toLocaleString('ja-JP');
+  }
+  btns.forEach(function(b){
+    b.addEventListener('click', function(){
+      cur = Number(b.dataset.i);
+      btns.forEach(function(o){ o.setAttribute('aria-pressed', String(o === b)); });
+      update();
+    });
+  });
+})();
+</script>
+</body>
+</html>

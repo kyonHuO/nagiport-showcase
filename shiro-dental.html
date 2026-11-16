@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#f3f8fa">
+<title>SHIRO 歯科 — 痛くない前に、来てほしい。</title>
+<style>
+html,body{background:#f3f8fa}
+*{box-sizing:border-box}
+body{margin:0;color:#16303a;font:15px/1.75 "Hiragino Sans","Yu Gothic",system-ui,sans-serif}
+a{color:inherit;text-decoration:none}button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+:focus-visible{outline:2px solid #0d7d92;outline-offset:3px}
+.wrap{max-width:1100px;margin:0 auto;padding:0 30px}
+header{background:#fff;border-bottom:1px solid #d8e6eb}
+header .wrap{display:flex;align-items:center;height:70px;gap:24px}
+.brand{font-size:18px;font-weight:700;letter-spacing:.1em;color:#0d7d92}
+nav{display:flex;gap:20px;font-size:12.5px;color:#5b7480}
+nav a:hover{color:#16303a}
+.cta{margin-left:auto;background:#0d7d92;color:#fff;border-radius:999px;padding:9px 18px;font-size:12.5px;font-weight:700}
+.hero{padding:52px 0 26px}
+.hero .wrap{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.eyebrow{font:10px/1 ui-monospace,Menlo,monospace;letter-spacing:.18em;color:#0d7d92}
+h1{font-size:clamp(28px,4vw,44px);line-height:1.34;letter-spacing:-.03em;margin:14px 0}
+.lede{color:#4e6a75;font-size:13.5px;max-width:400px;line-height:1.95}
+.art{aspect-ratio:5/4;background:linear-gradient(160deg,#e8f4f7,#cfe6ec 60%,#a9d3dd);position:relative;display:grid;place-items:center}
+.art svg{width:72%;height:auto}
+section.book{padding:30px 0 22px;border-top:1px solid #16303a}
+h2{font-size:clamp(20px,2.5vw,26px);margin:0 0 6px}
+.sub{font-size:12.5px;color:#5b7480;margin:0 0 18px}
+.week{display:grid;grid-template-columns:64px repeat(6,1fr);gap:6px;font-size:11px}
+.week .h{font-size:10px;color:#6b8794;text-align:center;padding-bottom:2px}
+.week .r{font-size:10px;color:#6b8794;display:flex;align-items:center}
+.slot{border:1px solid #cfe0e6;background:#fff;border-radius:6px;padding:7px 0;font-size:10.5px;color:#31525f;transition:background .15s ease,border-color .15s ease}
+.slot:hover{border-color:#0d7d92}
+.slot[aria-pressed=true]{background:#0d7d92;border-color:#0d7d92;color:#fff}
+.slot.off{background:#f0f4f5;color:#a9bcc3;border-style:dashed;cursor:default}
+.detail{margin-top:16px;border:1px solid #cfe0e6;background:#fff;padding:16px;font-size:12.5px;color:#4e6a75;min-height:64px}
+.detail b{color:#16303a}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding:26px 0 46px}
+.card{border-top:1px solid #d8e6eb;padding-top:12px}
+.card b{display:block;font-size:13.5px;margin-bottom:4px}
+.card p{font-size:12px;color:#5b7480;margin:0;line-height:1.85}
+footer{border-top:1px solid #d8e6eb;padding:22px 0 36px;font-size:10.5px;color:#6b8794}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+@media(max-width:900px){.hero .wrap{grid-template-columns:1fr;gap:20px}.cards{grid-template-columns:1fr}.week{grid-template-columns:48px repeat(6,1fr);gap:4px}nav{display:none}}
+@media(max-width:560px){.wrap{padding:0 16px}.slot{font-size:9px;padding:6px 0}.week{grid-template-columns:40px repeat(6,1fr)}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header><div class="wrap"><a class="brand" href="#">SHIRO</a>
+<nav aria-label="メインメニュー"><a href="#book">診療時間</a><a href="#care">予防</a><a href="#access">医院</a></nav>
+<a class="cta" href="#book">予約する</a></div></header>
+<main>
+<section class="hero"><div class="wrap">
+  <div><p class="eyebrow">DENTAL CLINIC / PREVENTIVE</p>
+  <h1>痛くない前に、<br>来てほしい。</h1>
+  <p class="lede">治療より、検診。3か月に一度のクリーニングで、削らずに済む歯を増やします。</p></div>
+  <div class="art" aria-hidden="true">
+    <svg viewBox="0 0 200 160"><g fill="none" stroke="#0d7d92" stroke-width="2.2"><path d="M62 34c14-10 40-10 54 0 10 12 8 40-2 62-6 14-14 26-24 26s-16-14-22-28c-8-19-10-42-2-54Z" fill="#fff"/><path d="M86 60c6-6 16-6 22 0"/><path d="M92 96c5 5 11 5 16 0"/></g><circle cx="150" cy="46" r="14" fill="#bde3ea"/><circle cx="156" cy="118" r="8" fill="#bde3ea"/></svg>
+  </div>
+</div></section>
+
+<section class="book" id="book"><div class="wrap">
+  <h2>今週の空き。</h2>
+  <p class="sub">枠を選ぶと内容が出ます。予約は電話で承ります（デモ）。</p>
+  <div class="week" id="week" role="group" aria-label="診療時間"></div>
+  <div class="detail" id="detail" aria-live="polite">枠を選んでください。空きのある時間だけ選べます。</div>
+</div></section>
+
+<section id="care"><div class="wrap cards">
+  <div class="card"><b>検診は3か月</b><p>痛みが出てからでは遅い。歯石と歯ぐきの状態を記録します。</p></div>
+  <div class="card"><b>麻酔は細く</b><p>注射の痛みを減らすため、極細の針と表面麻酔を使います。</p></div>
+  <div class="card"><b>説明は紙で</b><p>治療の前に、選択肢と費用を紙でお渡しします。</p></div>
+</div></section>
+</main>
+<footer id="access"><div class="wrap"><span>SHIRO 歯科 / sample site</span><span>医院名・空き状況は架空のサンプルです。予約送信は行いません。</span></div></footer>
+<script>
+(function(){
+  var days=['月','火','水','木','金','土'];
+  var rows=[['9:00','09:00'],['10:30','10:30'],['14:00','14:00'],['15:30','15:30']];
+  var week=document.getElementById('week');
+  var h=document.createElement('div');h.className='h';week.appendChild(h);
+  days.forEach(function(d){var e=document.createElement('div');e.className='h';e.textContent=d;week.appendChild(e);});
+  var sold={'水-14:00':1,'金-09:00':1};
+  rows.forEach(function(r){
+    var lab=document.createElement('div');lab.className='r';lab.textContent=r[0];week.appendChild(lab);
+    days.forEach(function(d){
+      var b=document.createElement('button');b.type='button';b.className='slot';b.textContent='○';
+      var key=d+'-'+r[1];
+      if(sold[key]){b.className='slot off';b.textContent='—';b.disabled=true;}
+      else{
+        b.setAttribute('aria-pressed','false');
+        b.addEventListener('click',function(){
+          Array.prototype.forEach.call(week.querySelectorAll('.slot'),function(o){o.setAttribute('aria-pressed',String(o===b));});
+          document.getElementById('detail').innerHTML='<b>'+d+'曜 '+r[0]+'</b> — 検診・クリーニング（30分）。予約は電話で承ります（デモ）。';
+        });
+      }
+      week.appendChild(b);
+    });
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#12100e">
+<title>KITE — 60秒に、全部いれる。</title>
+<style>
+html,body{background:#12100e}
+*{box-sizing:border-box}
+body{margin:0;color:#f4efe6;font:15px/1.75 "Hiragino Sans","Yu Gothic",-apple-system,sans-serif;overflow-x:hidden}
+a{color:inherit;text-decoration:none}button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+:focus-visible{outline:2px solid #e8a33d;outline-offset:3px}
+.wrap{max-width:1240px;margin:0 auto;padding:0 34px}
+header{position:sticky;top:0;z-index:20;background:#12100eeb;backdrop-filter:blur(10px);border-bottom:1px solid #2a2621}
+header .wrap{display:flex;align-items:center;height:66px;gap:30px}
+.brand{font-size:19px;letter-spacing:.18em;font-weight:600}
+nav{display:flex;gap:24px;font-size:12px;color:#9b9286}
+nav a:hover{color:#f4efe6}
+.right{margin-left:auto;display:flex;gap:14px;align-items:center;font-size:12px}
+.btn{border:1px solid #3a342c;border-radius:3px;padding:9px 16px;font-size:12px;transition:background .18s ease,color .18s ease,border-color .18s ease}
+.btn:hover{background:#221e19}
+.btn.amber{background:#e8a33d;color:#12100e;border-color:#e8a33d;font-weight:600}
+.btn.amber:hover{background:#f2b65c}
+.hero{padding:64px 0 22px}
+.hero .wrap{display:grid;grid-template-columns:1fr .92fr;gap:48px;align-items:center}
+.kicker{font:10px/1 ui-monospace,Menlo,monospace;letter-spacing:.22em;color:#e8a33d}
+h1{font-size:clamp(38px,5.6vw,74px);line-height:1.06;letter-spacing:-.05em;font-weight:600;margin:18px 0 20px}
+h1 span{display:block;color:#7a7266;font-size:.46em;letter-spacing:-.02em;margin-top:14px;font-weight:400;line-height:1.5}
+.lede{color:#a89f92;font-size:14px;max-width:380px;line-height:1.95}
+.cta{display:flex;gap:11px;margin-top:26px;flex-wrap:wrap}
+.film{border:1px solid #2a2621;border-radius:4px;background:#0c0b09;overflow:hidden}
+.film-top{display:flex;justify-content:space-between;padding:9px 12px;font:10px/1 ui-monospace,Menlo,monospace;color:#77705f;letter-spacing:.14em;border-bottom:1px solid #2a2621}
+.frames{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:#2a2621;border-bottom:1px solid #2a2621}
+.frame{position:relative;aspect-ratio:4/3;overflow:hidden;background:#1a1713}
+.frame:nth-child(1){background:linear-gradient(160deg,#2b2118,#5d3a1e 60%,#c98a3a)}
+.frame:nth-child(2){background:linear-gradient(200deg,#101820,#20415a 55%,#7fb4c9)}
+.frame:nth-child(3){background:linear-gradient(150deg,#241a24,#4d2b45 60%,#b1749a)}
+.frame:nth-child(4){background:linear-gradient(170deg,#1a1a14,#3d4230 55%,#9aa87a)}
+.frame:nth-child(5){background:linear-gradient(200deg,#241414,#5a2a24 55%,#c47a5e)}
+.frame:nth-child(6){background:linear-gradient(140deg,#151517,#33343b 60%,#8d8fa0)}
+.frame:after{content:"";position:absolute;inset:0;background:linear-gradient(to top,#0c0b0988,transparent 55%)}
+.frame i{position:absolute;left:8px;bottom:6px;font:9px/1 ui-monospace,Menlo,monospace;font-style:normal;color:#ffffffb0;letter-spacing:.08em;z-index:1}
+.film-foot{padding:11px 12px}
+.scrub{position:relative;height:34px;margin-bottom:8px}
+.scrub .bar{position:absolute;left:0;right:0;top:16px;height:2px;background:#2a2621}
+.scrub .fill{position:absolute;left:0;top:16px;height:2px;background:#e8a33d;width:calc(var(--f,0) * 100%)}
+.scrub .knob{position:absolute;top:11px;left:calc(var(--f,0) * 100%);width:12px;height:12px;border-radius:50%;background:#e8a33d;transform:translateX(-6px)}
+.scrub input[type=range]{position:absolute;inset:0;width:100%;height:100%;opacity:0;margin:0;cursor:ew-resize}
+.film-meta{display:flex;justify-content:space-between;font:10px/1.6 ui-monospace,Menlo,monospace;color:#77705f;letter-spacing:.06em}
+.film-meta b{color:#e8d9c2;font-weight:400}
+.caption{padding:11px 12px;border-top:1px solid #2a2621;font-size:11px;color:#a89f92;min-height:42px}
+.caption b{color:#f4efe6;font-weight:500}
+
+.band{border-top:1px solid #2a2621;padding:70px 0}
+.h2{font-size:clamp(26px,3.2vw,38px);line-height:1.24;letter-spacing:-.04em;margin:0 0 12px;font-weight:600}
+.sub{color:#a89f92;font-size:13.5px;max-width:520px;line-height:1.9}
+.works{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#2a2621;border:1px solid #2a2621;margin-top:32px}
+.work{background:#12100e;padding:22px}
+.work .n{font:10px/1 ui-monospace,Menlo,monospace;color:#77705f;letter-spacing:.14em}
+.work h3{font-size:16px;margin:12px 0 6px;font-weight:500}
+.work p{font-size:12px;color:#9b9286;margin:0;line-height:1.85}
+.work .tags{margin-top:14px;font:10px/1 ui-monospace,Menlo,monospace;color:#c1b6a4;letter-spacing:.06em}
+.process{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:30px}
+.step{border-top:1px solid #3a342c;padding-top:14px}
+.step b{font:10px/1 ui-monospace,Menlo,monospace;color:#e8a33d;letter-spacing:.12em}
+.step h4{font-size:14px;margin:11px 0 5px;font-weight:500}
+.step p{font-size:12px;color:#9b9286;margin:0;line-height:1.8}
+footer{border-top:1px solid #2a2621;padding:28px 0 40px;font-size:10px;color:#77705f;letter-spacing:.05em}
+footer .wrap{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap}
+@media(max-width:940px){
+ .hero .wrap{grid-template-columns:1fr;gap:30px}
+ .works{grid-template-columns:1fr}
+ .process{grid-template-columns:1fr 1fr}
+ nav{display:none}
+}
+@media(max-width:560px){
+ .wrap{padding:0 20px}
+ .frames{grid-template-columns:repeat(2,1fr)}
+ .process{grid-template-columns:1fr}
+ .right .btn:not(.amber){display:none}
+}
+@media(prefers-reduced-motion:reduce){*{transition-duration:.01ms!important;animation-duration:.01ms!important}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="brand" href="#">KITE</a>
+    <nav aria-label="メインメニュー"><a href="#film">作品</a><a href="#process">進め方</a><a href="#contact">相談</a></nav>
+    <div class="right"><a href="#film" class="btn">資料</a><a href="#film" class="btn amber">相談する</a></div>
+  </div>
+</header>
+
+<main>
+<section class="hero" id="film">
+  <div class="wrap">
+    <div>
+      <p class="kicker">FILM / MOTION / 60 SEC</p>
+      <h1>60秒に、<br>全部いれる。<span>撮影から編集まで、ひとつの卓で。</span></h1>
+      <p class="lede">短い尺ほど、順番がものを言う。絵コンテの段階で1カットずつ削り、残ったカットに時間をかけます。</p>
+      <div class="cta"><a class="btn amber" href="#film">構成を見る</a><a class="btn" href="#process">進め方</a></div>
+    </div>
+
+    <div class="film">
+      <div class="film-top"><span>STORYBOARD / 12 CUTS</span><span id="tc">00:00:14</span></div>
+      <div class="frames" aria-hidden="true">
+        <div class="frame" data-c="0"><i>01</i></div>
+        <div class="frame" data-c="1"><i>02</i></div>
+        <div class="frame" data-c="2"><i>03</i></div>
+        <div class="frame" data-c="3"><i>04</i></div>
+        <div class="frame" data-c="4"><i>05</i></div>
+        <div class="frame" data-c="5"><i>06</i></div>
+      </div>
+      <div class="film-foot">
+        <div class="scrub" id="scrub" style="--f:0.23">
+          <span class="bar"></span><span class="fill"></span><span class="knob"></span>
+          <input id="frame" type="range" min="0" max="100" value="23" step="1" aria-label="カットの位置">
+        </div>
+        <div class="film-meta"><span>TC <b id="tc2">00:00:14</b></span><span>CUT <b id="cut">04 / 12</b></span></div>
+      </div>
+      <div class="caption" id="caption"><b>寄り：手元</b> — 素材に触れる瞬間を、逆光で。</div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="process">
+  <div class="wrap">
+    <h2>削る順番を、<br>先に決める。</h2>
+    <p class="sub">尺が決まっている案件ほど、撮る前に構成を固めます。追加カットは、残したカットが弱いときだけ。</p>
+    <div class="process">
+      <div class="step"><b>01 / BRIEF</b><h4>1行の目的</h4><p>誰の何を、何秒で変えるか。ここが曖昧だと尺が膨らみます。</p></div>
+      <div class="step"><b>02 / BOARD</b><h4>12カット</h4><p>絵コンテは12枚。増やすより、順番を入れ替えて比べます。</p></div>
+      <div class="step"><b>03 / SHOOT</b><h4>2日で撮る</h4><p>光の向きが変わる前提で、同じカットを2方向から。</p></div>
+      <div class="step"><b>04 / CUT</b><h4>最後に音</h4><p>画が決まってから音。音楽に合わせて画を切ると、たいてい弱くなります。</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <h2>最近の3本。</h2>
+    <div class="works">
+      <article class="work"><span class="n">01 / 60s</span><h3>工房の朝</h3><p>木工房の一日を、作業の音だけで構成。ナレーションなし。</p><span class="tags">DIRECTION / EDIT</span></article>
+      <article class="work"><span class="n">02 / 30s</span><h3>川と街</h3><p>空撮と地上の切り返しで、距離を感じさせる短編。</p><span class="tags">SHOOT / COLOR</span></article>
+      <article class="work"><span class="n">03 / 15s</span><h3>窯の温度</h3><p>釉薬が溶ける瞬間を高速度で。1カットだけの構成。</p><span class="tags">SHOOT / SOUND</span></article>
+    </div>
+    <p style="font-size:11px;color:#77705f;margin-top:16px">作品名・尺・内容は架空のサンプルです。実在の制作実績ではありません。</p>
+  </div>
+</section>
+</main>
+
+<footer id="contact">
+  <div class="wrap"><span>KITE FILM / sample site</span><span>映像は再生されません。絵コンテの操作デモのみです。</span></div>
+</footer>
+
+<script>
+(function(){
+  var cuts = [
+    ['寄り：手元','素材に触れる瞬間を、逆光で。'],
+    ['引き：工房','作業台と道具の配置が分かる高さで。'],
+    ['横移動','扉から窓へ。光の入り方をなぞる。'],
+    ['寄り：目','手を止めた瞬間だけ、目を写す。'],
+    ['俯瞰','一日の流れを1カットで示す。'],
+    ['余白','音を抜く。最後に残すのは、この2秒。']
+  ];
+  var range = document.getElementById('frame');
+  var scrub = document.getElementById('scrub');
+  function paint(){
+    var v = Number(range.value);
+    scrub.style.setProperty('--f', (v/100).toFixed(3));
+    var sec = Math.round(v/100*60);
+    var tc = '00:00:' + String(sec).padStart(2,'0');
+    document.getElementById('tc').textContent = tc;
+    document.getElementById('tc2').textContent = tc;
+    document.getElementById('cut').textContent = String(Math.min(12, Math.floor(v/100*12)+1)).padStart(2,'0') + ' / 12';
+    var idx = Math.min(5, Math.floor(v/100*6));
+    var c = cuts[idx];
+    document.getElementById('caption').innerHTML = '<b>' + c[0] + '</b> — ' + c[1];
+  }
+  range.addEventListener('input', paint);
+  document.querySelectorAll('.frame').forEach(function(f){
+    f.addEventListener('click', function(){
+      range.value = Number(f.dataset.c) * 16 + 8;
+      paint();
+    });
+    f.style.cursor = 'pointer';
+  });
+  paint();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#f2f4f5">
+<title>NORTH 精機 — 0.01mmを、毎日。</title>
+<style>
+html,body{background:#f2f4f5}
+*{box-sizing:border-box}
+body{margin:0;color:#101820;font:15px/1.72 "Hiragino Sans","Yu Gothic",-apple-system,sans-serif}
+a{color:inherit;text-decoration:none}button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+:focus-visible{outline:2px solid #0b4f9c;outline-offset:3px}
+.wrap{max-width:1230px;margin:0 auto;padding:0 32px}
+header{background:#fff;border-bottom:1px solid #dce1e4;position:sticky;top:0;z-index:20}
+header .wrap{display:flex;align-items:center;height:68px;gap:30px}
+.brand{font-size:17px;font-weight:700;letter-spacing:-.01em;display:flex;align-items:center;gap:9px}
+.brand i{width:18px;height:18px;border:2.5px solid #0b4f9c;border-radius:2px;display:block;position:relative}
+.brand i:after{content:"";position:absolute;right:-2px;bottom:-2px;width:7px;height:7px;background:#e2521c}
+nav{display:flex;gap:22px;font-size:12.5px;color:#53616c}
+nav a:hover{color:#101820}
+.right{margin-left:auto;display:flex;gap:14px;align-items:center;font-size:12.5px}
+.tel{font:600 13px/1 ui-monospace,Menlo,monospace;color:#0b4f9c;letter-spacing:.02em}
+.btn{background:#0b4f9c;color:#fff;border-radius:3px;padding:11px 18px;font-size:12.5px;font-weight:600;transition:background .18s ease}
+.btn:hover{background:#083a72}
+.btn.line{background:#fff;color:#0b4f9c;border:1px solid #b9c6d1}
+.btn.line:hover{background:#eef3f8}
+
+.hero{background:#fff;border-bottom:1px solid #dce1e4}
+.hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center;padding:58px 32px 46px}
+.tag{display:inline-block;background:#eef3f8;color:#0b4f9c;font-size:10.5px;letter-spacing:.08em;padding:5px 10px;border-radius:2px;font-weight:600}
+h1{font-size:clamp(30px,4vw,48px);line-height:1.28;letter-spacing:-.03em;font-weight:700;margin:16px 0 16px}
+.lede{color:#4a5863;font-size:14px;max-width:430px;line-height:1.95}
+.cta{display:flex;gap:10px;margin-top:26px;flex-wrap:wrap}
+.facts{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid #dce1e4;margin-top:34px}
+.fact{padding:16px 12px 0 0}
+.fact b{display:block;font:700 22px/1.2 ui-monospace,Menlo,monospace;letter-spacing:-.02em;color:#0b4f9c}
+.fact span{font-size:11px;color:#6b7780}
+.diagram{background:#f7f9fa;border:1px solid #dce1e4;border-radius:4px;padding:18px}
+.diagram svg{width:100%;height:auto;display:block}
+.parts{display:flex;gap:14px;margin-top:12px;font:10.5px/1.5 ui-monospace,Menlo,monospace;color:#6b7780;flex-wrap:wrap}
+.parts b{color:#101820;font-weight:600}
+
+section{padding:64px 0}
+.head{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap}
+.h2{font-size:clamp(23px,2.8vw,32px);line-height:1.3;letter-spacing:-.035em;margin:0}
+.sub{color:#4a5863;font-size:13.5px;max-width:460px;line-height:1.9;margin:10px 0 0}
+.tabs{display:flex;gap:0;margin-top:28px;border-bottom:1px solid #cfd8de;flex-wrap:wrap}
+.tab{padding:12px 18px;font-size:13px;color:#53616c;border-bottom:2px solid transparent;margin-bottom:-1px}
+.tab[aria-pressed=true]{color:#0b4f9c;border-bottom-color:#0b4f9c;font-weight:600}
+.panel{display:grid;grid-template-columns:1.15fr .85fr;gap:0;border:1px solid #dce1e4;border-top:0;background:#fff}
+.spec{padding:26px 28px}
+.spec h3{font-size:19px;margin:0 0 4px;letter-spacing:-.02em}
+.spec .code{font:10.5px/1 ui-monospace,Menlo,monospace;color:#6b7780;letter-spacing:.06em}
+table{width:100%;border-collapse:collapse;margin-top:18px;font-size:12.5px}
+th,td{text-align:left;padding:9px 6px;border-bottom:1px solid #e6ebee}
+th{font-weight:500;color:#6b7780;width:44%}
+td{font-family:ui-monospace,Menlo,monospace;font-size:12px}
+.scale{border-left:1px solid #dce1e4;padding:26px;display:flex;flex-direction:column;justify-content:space-between;gap:18px}
+.scale h4{font-size:11px;letter-spacing:.1em;color:#6b7780;margin:0 0 6px;font-weight:600}
+.gauge{position:relative;height:110px;border-bottom:1px solid #cfd8de;display:flex;align-items:flex-end;gap:12px;padding-bottom:0}
+.col{flex:1;background:#dfe8ef;border-radius:2px 2px 0 0;position:relative;transition:height .25s ease,background .25s ease}
+.col.on{background:#0b4f9c}
+.col span{position:absolute;top:-17px;left:0;right:0;text-align:center;font:9px/1 ui-monospace,Menlo,monospace;color:#6b7780}
+.scale p{font-size:11px;color:#6b7780;margin:0;line-height:1.7}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:30px;border-top:1px solid #dce1e4}
+.step{padding:20px 18px 0 0;border-right:1px solid #e6ebee}
+.step:last-child{border-right:0}
+.step b{font:10px/1 ui-monospace,Menlo,monospace;color:#e2521c;letter-spacing:.12em}
+.step h4{font-size:14px;margin:10px 0 5px}
+.step p{font-size:12px;color:#53616c;margin:0;line-height:1.8}
+.cta-band{background:#0f1c27;color:#eef3f8;border-radius:4px;padding:34px 32px;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;margin-top:8px}
+.cta-band h2{font-size:clamp(21px,2.6vw,28px);margin:0;letter-spacing:-.03em}
+.cta-band p{color:#9fb0bd;font-size:12px;margin:6px 0 0}
+.btn.orange{background:#e2521c}
+.btn.orange:hover{background:#c4440f}
+footer{border-top:1px solid #dce1e4;background:#fff;padding:26px 0 38px;font-size:11px;color:#6b7780}
+footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+@media(max-width:940px){
+ .hero .wrap{grid-template-columns:1fr;gap:30px;padding-top:40px}
+ .panel{grid-template-columns:1fr}
+ .scale{border-left:0;border-top:1px solid #dce1e4}
+ .steps{grid-template-columns:1fr 1fr}
+ .step{border-bottom:1px solid #e6ebee;padding-bottom:16px}
+ nav{display:none}
+}
+@media(max-width:560px){
+ .wrap{padding:0 20px}
+ .hero .wrap{padding:36px 20px 30px}
+ .facts{grid-template-columns:1fr 1fr}
+ .tel{display:none}
+ .steps{grid-template-columns:1fr}
+ .spec,.scale{padding:20px}
+}
+@media(prefers-reduced-motion:reduce){*{transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="brand" href="#"><i aria-hidden="true"></i>NORTH 精機</a>
+    <nav aria-label="メインメニュー"><a href="#line">製品</a><a href="#flow">対応の流れ</a><a href="#company">会社情報</a></nav>
+    <div class="right"><span class="tel">022-000-0000</span><a class="btn" href="#contact">見積を依頼</a></div>
+  </div>
+</header>
+
+<main>
+<section class="hero" id="line">
+  <div class="wrap">
+    <div>
+      <span class="tag">精密部品の試作・小ロット</span>
+      <h1>0.01mmを、<br>毎日つくる。</h1>
+      <p class="lede">図面1枚から、月300個まで。切削・研磨・検査を同じ建物で行うので、寸法の相談がその日のうちに返ります。</p>
+      <div class="cta"><a class="btn" href="#contact">図面を送って相談</a><a class="btn line" href="#flow">対応の流れ</a></div>
+      <div class="facts">
+        <div class="fact"><b>±0.005</b><span>最短の公差（サンプル）</span></div>
+        <div class="fact"><b>3日</b><span>初回見積の目安</span></div>
+        <div class="fact"><b>5軸</b><span>同時加工に対応</span></div>
+      </div>
+    </div>
+    <div class="diagram">
+      <svg viewBox="0 0 460 300" role="img" aria-label="加工と検査の流れを示す自作の図">
+        <g fill="none" stroke="#0b4f9c" stroke-width="1.4">
+          <rect x="24" y="60" width="96" height="70" rx="3"/>
+          <rect x="182" y="60" width="96" height="70" rx="3"/>
+          <rect x="340" y="60" width="96" height="70" rx="3"/>
+          <path d="M120 95h62M278 95h62"/>
+          <path d="M182 150v46h254v-46" stroke-dasharray="4 4" stroke="#9fb0bd"/>
+          <path d="M24 196h436" stroke="#dce1e4"/>
+        </g>
+        <g fill="#0b4f9c" font-family="ui-monospace,Menlo,monospace" font-size="10">
+          <text x="36" y="86">CUT</text><text x="194" y="86">GRIND</text><text x="352" y="86">CHECK</text>
+          <text x="36" y="104" fill="#53616c" font-size="9">5軸 / 切削</text>
+          <text x="194" y="104" fill="#53616c" font-size="9">±0.005</text>
+          <text x="352" y="104" fill="#53616c" font-size="9">全数 / 抜取</text>
+          <text x="24" y="222" fill="#6b7780" font-size="9">1社内で完結 → 再依頼が早い</text>
+        </g>
+        <g stroke="#e2521c" stroke-width="1.4" fill="none">
+          <path d="M182 172h60m-6-5 6 5-6 5"/>
+        </g>
+        <circle cx="410" cy="196" r="4" fill="#e2521c"/>
+      </svg>
+      <div class="parts"><span><b>材質</b> SUS / A5052 / POM</span><span><b>数量</b> 1〜300</span><span><b>納期</b> 最短5日</span></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="head">
+      <div><h2 class="h2">3つの加工ライン。</h2><p class="sub">タブを切り替えると、そのラインの公差と対応サイズが変わります。数値は画面確認用のサンプルです。</p></div>
+    </div>
+
+    <div class="tabs" role="group" aria-label="加工ライン">
+      <button class="tab" type="button" data-i="0" aria-pressed="true">切削</button>
+      <button class="tab" type="button" data-i="1" aria-pressed="false">研磨</button>
+      <button class="tab" type="button" data-i="2" aria-pressed="false">試作治具</button>
+    </div>
+
+    <div class="panel">
+      <div class="spec">
+        <h3 id="pName">5軸マシニング</h3>
+        <span class="code" id="pCode">LINE A / CUT</span>
+        <table>
+          <tbody>
+            <tr><th>対応サイズ</th><td id="s1">□5 〜 400 mm</td></tr>
+            <tr><th>標準公差</th><td id="s2">±0.010 mm</td></tr>
+            <tr><th>最短納期</th><td id="s3">5 営業日</td></tr>
+            <tr><th>数量</th><td id="s4">1 〜 300 個</td></tr>
+            <tr><th>材質</th><td id="s5">SUS / A5052 / POM</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="scale">
+        <div>
+          <h4>公差の比較（µm・小さいほど精密）</h4>
+          <div class="gauge" id="gauge">
+            <div class="col" style="height:78%"><span>切削 10</span></div>
+            <div class="col" style="height:46%"><span>研磨 5</span></div>
+            <div class="col" style="height:92%"><span>治具 20</span></div>
+          </div>
+        </div>
+        <p id="pNote">5軸同時加工で、段取り回数を減らします。薄肉形状は事前にご相談ください。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="flow" style="padding-top:0">
+  <div class="wrap">
+    <div class="head"><div><h2 class="h2">図面1枚から、5日で。</h2><p class="sub">見積 → 工程 → 加工 → 検査。各段階で連絡を返します。</p></div></div>
+    <div class="steps">
+      <div class="step"><b>01 / SEND</b><h4>図面を送る</h4><p>PDF・STEPどちらでも。寸法の優先順位が分かると早いです。</p></div>
+      <div class="step"><b>02 / QUOTE</b><h4>3日で見積</h4><p>材質・数量・公差から、加工法と単価を提示します。</p></div>
+      <div class="step"><b>03 / MAKE</b><h4>5日で初品</h4><p>初品は全数検査。測定表を添えて納品します。</p></div>
+      <div class="step"><b>04 / CHECK</b><h4>検査で止める</h4><p>寸法だけでなく、面粗さとバリも記録します。</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="company" style="padding-top:0">
+  <div class="wrap">
+    <div class="cta-band" id="contact">
+      <div><h2>まず、図面を見せてください。</h2><p>このページは架空の会社による構成の試作です。送信・見積・電話は行われません。</p></div>
+      <a class="btn orange" href="#line">製品ラインを見る</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap"><span>NORTH 精機 / sample site</span><span>会社名・数値・所在地はすべて架空です。</span></div>
+</footer>
+
+<script>
+(function(){
+  var lines = [
+    {name:'5軸マシニング', code:'LINE A / CUT', s:['□5 〜 400 mm','±0.010 mm','5 営業日','1 〜 300 個','SUS / A5052 / POM'], col:0,
+     note:'5軸同時加工で、段取り回数を減らします。薄肉形状は事前にご相談ください。'},
+    {name:'鏡面研磨', code:'LINE B / GRIND', s:['φ3 〜 200 mm','±0.005 mm','7 営業日','1 〜 120 個','SUS / SKD11 / 超硬'], col:1,
+     note:'面粗さ Ra0.05 まで。研磨後に測定表を添付します。'},
+    {name:'試作治具', code:'LINE C / JIG', s:['最大 600 mm','±0.020 mm','3 営業日','1 〜 20 個','A5052 / ベークライト'], col:2,
+     note:'設計から関与します。まず干渉のない形に落とすところから。'}
+  ];
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('.tab'));
+  var cols = Array.prototype.slice.call(document.querySelectorAll('#gauge .col'));
+  function show(i){
+    var L = lines[i];
+    tabs.forEach(function(t){ t.setAttribute('aria-pressed', String(Number(t.dataset.i) === i)); });
+    document.getElementById('pName').textContent = L.name;
+    document.getElementById('pCode').textContent = L.code;
+    for (var n = 1; n <= 5; n++) document.getElementById('s' + n).textContent = L.s[n-1];
+    document.getElementById('pNote').textContent = L.note;
+    cols.forEach(function(c, k){ c.classList.toggle('on', k === L.col); });
+  }
+  tabs.forEach(function(t){ t.addEventListener('click', function(){ show(Number(t.dataset.i)); }); });
+  show(0);
+})();
+</script>
+</body>
+</html>

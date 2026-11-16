@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#f7f6f2">
+<title>KANE 会計 — 数字を、読める形に。</title>
+<style>
+html,body{background:#f7f6f2}
+*{box-sizing:border-box}
+body{margin:0;color:#1d232b;font:15px/1.75 "Hiragino Sans","Yu Gothic",system-ui,sans-serif}
+a{color:inherit;text-decoration:none}button,input{font:inherit;color:inherit}
+button{cursor:pointer;background:none;border:0}
+:focus-visible{outline:2px solid #1f4f7a;outline-offset:3px}
+.wrap{max-width:1100px;margin:0 auto;padding:0 30px}
+header{border-bottom:1px solid #dfe2e6;background:#fff}
+header .wrap{display:flex;align-items:center;height:68px;gap:24px}
+.brand{font-size:18px;font-weight:700;letter-spacing:.08em;color:#1f4f7a}
+nav{display:flex;gap:20px;font-size:12.5px;color:#5b6672}
+nav a:hover{color:#1d232b}
+.cta{margin-left:auto;border:1px solid #1f4f7a;color:#1f4f7a;border-radius:4px;padding:8px 16px;font-size:12.5px;font-weight:600}
+.hero{padding:52px 0 24px}
+.hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:36px;align-items:center}
+.eyebrow{font:10px/1 ui-monospace,Menlo,monospace;letter-spacing:.18em;color:#1f4f7a}
+h1{font-size:clamp(29px,4.2vw,46px);line-height:1.3;letter-spacing:-.03em;margin:12px 0}
+.lede{color:#5b6672;font-size:13.5px;max-width:390px;line-height:1.95}
+.chart{background:#fff;border:1px solid #dfe2e6;padding:16px}
+.chart h3{font-size:10px;letter-spacing:.12em;color:#7b8794;margin:0 0 10px}
+.chart svg{width:100%;height:auto;display:block}
+section.fee{padding:28px 0 20px;border-top:1px solid #1d232b}
+h2{font-size:clamp(20px,2.4vw,26px);margin:0 0 6px}
+.sub{font-size:12.5px;color:#5b6672;margin:0 0 16px}
+.calc{display:grid;grid-template-columns:1fr .85fr;gap:24px;border:1px solid #dfe2e6;background:#fff;padding:20px}
+.calc h3{font-size:10.5px;letter-spacing:.12em;color:#7b8794;margin:0 0 8px}
+input[type=range]{width:100%;accent-color:#1f4f7a;margin:8px 0 2px}
+.out{font:700 26px/1.2 ui-monospace,Menlo,monospace;color:#1f4f7a}
+.rows{display:grid;gap:6px;margin-top:12px;font-size:12px;color:#5b6672}
+.rows div{display:flex;justify-content:space-between;border-bottom:1px dashed #e5e8ec;padding-bottom:4px}
+.rows b{color:#1d232b}
+.total{border-top:2px solid #1d232b;margin-top:10px;padding-top:8px;font-size:13px}
+.total b{font:800 24px/1.2 ui-monospace,Menlo,monospace;color:#1f4f7a}
+.note{font-size:10.5px;color:#8b96a1;margin-top:8px}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding:24px 0 44px}
+.card{border-top:1px solid #dfe2e6;padding-top:11px}
+.card b{display:block;font-size:13.5px;margin-bottom:4px}
+.card p{font-size:12px;color:#5b6672;margin:0;line-height:1.85}
+footer{border-top:1px solid #dfe2e6;padding:20px 0 34px;font-size:10.5px;color:#8b96a1}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+@media(max-width:900px){.hero .wrap{grid-template-columns:1fr;gap:20px}.calc{grid-template-columns:1fr}.cards{grid-template-columns:1fr}nav{display:none}}
+@media(max-width:560px){.wrap{padding:0 16px}.out{font-size:22px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header><div class="wrap"><a class="brand" href="#">KANE</a>
+<nav aria-label="メインメニュー"><a href="#fee">料金</a><a href="#work">業務</a><a href="#access">事務所</a></nav>
+<a class="cta" href="#fee">相談する</a></div></header>
+<main>
+<section class="hero"><div class="wrap">
+  <div><p class="eyebrow">ACCOUNTING / SMALL BUSINESS</p>
+  <h1>数字を、<br>読める形に。</h1>
+  <p class="lede">記帳と決算だけで終わらせない。毎月の数字から、来月の判断ができる状態をつくります。</p></div>
+  <div class="chart">
+    <h3>月次レポートの例（サンプル）</h3>
+    <svg viewBox="0 0 320 150" role="img" aria-label="売上と経費の推移（サンプル）">
+      <g stroke="#e5e8ec"><path d="M20 120h280M20 80h280M20 40h280"/></g>
+      <path d="M20 100 70 88 120 92 170 70 220 64 270 48 300 44" fill="none" stroke="#1f4f7a" stroke-width="2.4"/>
+      <path d="M20 112 70 108 120 104 170 100 220 96 270 88 300 86" fill="none" stroke="#c9a227" stroke-width="2.4" stroke-dasharray="4 4"/>
+      <g fill="#1f4f7a" font-family="ui-monospace,Menlo,monospace" font-size="8"><text x="22" y="140">4月</text><text x="270" y="140">10月</text></g>
+    </svg>
+    <p class="note">太線=売上、破線=経費。実際の数値ではありません。</p>
+  </div>
+</div></section>
+
+<section class="fee" id="fee"><div class="wrap">
+  <h2>取引件数から、月額の目安。</h2>
+  <p class="sub">月間の仕訳件数を動かすと、記帳代行の月額目安が変わります（税込・サンプル）。</p>
+  <div class="calc">
+    <div>
+      <h3>月間の仕訳件数</h3>
+      <output class="out" id="cntOut">120 件</output>
+      <input type="range" id="cnt" min="20" max="600" step="10" value="120" aria-label="月間の仕訳件数">
+      <div class="rows">
+        <div><span>記帳代行</span><b id="r1">¥16,500</b></div>
+        <div><span>決算料（年1回・月割）</span><b id="r2">¥3,300</b></div>
+        <div><span>顧問料</span><b id="r3">¥11,000</b></div>
+      </div>
+      <div class="total">月額の目安 <b id="total">¥30,800</b></div>
+      <p class="note">※ 目安のサンプルです。実際の料金は取引内容・業種で変わります。税込表示。</p>
+    </div>
+    <div class="chart" style="border:0;padding:0">
+      <h3>含まれるもの</h3>
+      <div class="rows">
+        <div><span>毎月の記帳・試算表</span><b>○</b></div>
+        <div><span>年1回の決算・申告</span><b>○</b></div>
+        <div><span>月1回のオンライン面談</span><b>○</b></div>
+        <div><span>給与計算（5人まで）</span><b>○</b></div>
+      </div>
+      <p class="note">記帳はクラウド会計のデータを取り込みます。紙の領収書は月1回まとめて郵送。</p>
+    </div>
+  </div>
+</div></section>
+
+<section id="work"><div class="wrap cards">
+  <div class="card"><b>毎月の試算表</b><p>翌月10日までに、前月の数字を返します。遅れそうなときは先に連絡します。</p></div>
+  <div class="card"><b>面談は30分</b><p>数字を見ながら、値付けや採用の判断を一緒に確認します。</p></div>
+  <div class="card"><b>記帳の引き継ぎ</b><p>他の事務所からの切り替えは、過去3年分まで対応します。</p></div>
+</div></section>
+</main>
+<footer id="access"><div class="wrap"><span>KANE 会計 / sample site</span><span>事務所名・料金は架空のサンプルです。相談送信はありません。</span></div></footer>
+<script>
+(function(){
+  var cnt=document.getElementById('cnt');
+  function yen(n){return '¥'+Math.round(n).toLocaleString('ja-JP');}
+  function paint(){
+    var n=Number(cnt.value);
+    document.getElementById('cntOut').textContent=n+' 件';
+    var book=Math.max(11000,Math.round(n*55/100)*100);
+    var close=3300, advisory=11000;
+    document.getElementById('r1').textContent=yen(book);
+    document.getElementById('r2').textContent=yen(close);
+    document.getElementById('r3').textContent=yen(advisory);
+    document.getElementById('total').textContent=yen(book+close+advisory);
+  }
+  cnt.addEventListener('input',paint); paint();
+})();
+</script>
+</body>
+</html>

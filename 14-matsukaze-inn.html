@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#f3eee4">
+<title>湯の宿 まつかぜ — 冬の湯は、静かに。</title>
+<style>
+html,body{background:#f3eee4}
+*{box-sizing:border-box}
+body{margin:0;color:#26221c;font:15px/1.8 "Hiragino Mincho ProN","Yu Mincho","Hiragino Sans",serif}
+a{color:inherit;text-decoration:none}button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+:focus-visible{outline:2px solid #7a5c3a;outline-offset:3px}
+.wrap{max-width:1160px;margin:0 auto;padding:0 32px}
+header{position:absolute;left:0;right:0;top:0;z-index:10;color:#f7f1e4}
+header .wrap{display:flex;align-items:center;height:76px;gap:26px}
+.brand{font-size:19px;letter-spacing:.14em}
+nav{display:flex;gap:22px;font-size:11.5px;letter-spacing:.06em;color:#eee3d1}
+nav a:hover{color:#fff}
+.right{margin-left:auto;font-size:11px;letter-spacing:.1em;color:#eee3d1}
+
+.hero{position:relative;min-height:440px;display:flex;align-items:flex-end;color:#f7f1e4;background:
+ radial-gradient(80% 70% at 75% 20%,#4a3a2c,transparent 60%),
+ linear-gradient(200deg,#2b2620,#3c332a 45%,#5d4a36);overflow:hidden}
+.hero:after{content:"";position:absolute;inset:0;background:linear-gradient(to top,#1b1712dd,transparent 62%)}
+.hero .wrap{position:relative;z-index:1;padding-top:120px;padding-bottom:34px}
+.hero p.k{font-size:10px;letter-spacing:.24em;color:#d9c8ac;margin:0 0 14px}
+.hero h1{font-size:clamp(30px,4.4vw,50px);line-height:1.4;font-weight:400;letter-spacing:-.01em;margin:0 0 14px}
+.hero .sub{font-size:12px;color:#d9ccb8;letter-spacing:.04em}
+.mountains{position:absolute;right:-40px;bottom:0;width:62%;max-width:620px;opacity:.5;z-index:0}
+
+.book{background:#fbf7ef;border:1px solid #e3dac9;margin-top:-1px}
+.book .wrap{padding:26px 32px 30px}
+.b-row{display:grid;grid-template-columns:1.35fr .65fr .65fr;gap:22px;align-items:end}
+.field label{display:block;font-size:10px;letter-spacing:.12em;color:#8b8172;margin-bottom:6px;font-family:"Hiragino Sans",sans-serif}
+.dates{display:flex;gap:5px;flex-wrap:wrap}
+.d{border:1px solid #d8cdb9;padding:6px 10px;font-size:11.5px;font-family:"Hiragino Sans",sans-serif;background:#fff;color:#3a332a}
+.d:hover{border-color:#7a5c3a}
+.d[aria-pressed=true]{background:#3a332a;border-color:#3a332a;color:#f7f1e4}
+.d small{display:block;font-size:9px;color:#a2968a;letter-spacing:.02em}
+.d[aria-pressed=true] small{color:#c9bda9}
+.guests{display:flex;align-items:center;gap:0;border:1px solid #d8cdb9;background:#fff;width:max-content}
+.guests button{padding:7px 12px;font-size:14px;color:#3a332a}
+.guests span{padding:0 6px;font-size:12px;font-family:"Hiragino Sans",sans-serif;min-width:56px;text-align:center}
+.rooms{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:22px}
+.room{border:1px solid #ddd2c0;background:#fff;text-align:left;padding:0;overflow:hidden;display:flex;flex-direction:column;transition:border-color .16s ease}
+.room:hover{border-color:#7a5c3a}
+.room[aria-pressed=true]{border-color:#3a332a;box-shadow:0 0 0 1px #3a332a}
+.room .img{height:104px;position:relative}
+.room:nth-child(1) .img{background:linear-gradient(160deg,#6e5a44,#a98c68 60%,#d8c4a6)}
+.room:nth-child(2) .img{background:linear-gradient(160deg,#4d5a52,#7d8f7c 60%,#c3cfb9)}
+.room:nth-child(3) .img{background:linear-gradient(160deg,#5a4a4d,#957070 60%,#d3b3a8)}
+.room .body{padding:12px 14px 14px}
+.room h3{font-size:14px;margin:0 0 4px;font-weight:500}
+.room p{font-size:11px;color:#7c7263;margin:0;font-family:"Hiragino Sans",sans-serif;line-height:1.7}
+.room .price{margin-top:9px;font-size:12px;font-family:"Hiragino Sans",sans-serif;color:#3a332a}
+.room .price b{font-size:16px}
+.total{display:flex;justify-content:space-between;align-items:center;gap:16px;border-top:1px solid #e3dac9;margin-top:20px;padding-top:16px;flex-wrap:wrap}
+.total .sum{font-size:12px;font-family:"Hiragino Sans",sans-serif;color:#6b6153}
+.total .sum b{font-size:22px;color:#26221c;letter-spacing:-.02em;margin-left:6px}
+.total .cta{display:flex;gap:10px;align-items:center}
+.btn{background:#3a332a;color:#f7f1e4;padding:11px 20px;font-size:12px;letter-spacing:.06em;font-family:"Hiragino Sans",sans-serif}
+.btn:hover{background:#54493b}
+.note{font-size:10px;color:#9a8f7f;margin:10px 0 0;font-family:"Hiragino Sans",sans-serif}
+
+section.story{padding:62px 0}
+.story .story-top{display:grid;grid-template-columns:.9fr 1.1fr;gap:44px;align-items:center}
+.story h2{font-size:clamp(22px,2.6vw,30px);font-weight:400;line-height:1.7;margin:0 0 14px}
+.story p{font-size:12.5px;color:#6b6153;line-height:2.1;font-family:"Hiragino Sans",sans-serif;margin:0}
+.fig{aspect-ratio:5/4;background:linear-gradient(150deg,#cfc0a6,#9d8a6c 55%,#6a5a44);position:relative}
+.fig:after{content:"OPEN AIR BATH / SAMPLE";position:absolute;left:12px;bottom:10px;font:9px/1 ui-monospace,Menlo,monospace;color:#fffaf0cc;letter-spacing:.12em}
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;border-top:1px solid #ddd2c0;margin-top:44px;padding-top:18px}
+.three div b{display:block;font-size:13px;margin-bottom:5px;font-weight:500}
+.three div p{font-size:11.5px;color:#6b6153;margin:0;line-height:1.9;font-family:"Hiragino Sans",sans-serif}
+footer{padding:24px 0 38px;font-size:10px;color:#9a8f7f;border-top:1px solid #ddd2c0;font-family:"Hiragino Sans",sans-serif}
+footer .wrap{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap}
+@media(max-width:940px){
+ .b-row{grid-template-columns:1fr;gap:16px}
+ .rooms{grid-template-columns:1fr}
+ .story .wrap{grid-template-columns:1fr;gap:22px}
+ .three{grid-template-columns:1fr;gap:16px}
+ nav{display:none}
+ .hero{min-height:380px}
+}
+@media(max-width:560px){
+ .wrap{padding:0 20px}
+ .book .wrap{padding:22px 20px 26px}
+ .hero .wrap{padding-top:100px}
+ .total{align-items:flex-start;flex-direction:column}
+ .right{display:none}
+}
+@media(prefers-reduced-motion:reduce){*{transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="brand" href="#">まつかぜ</a>
+    <nav aria-label="メインメニュー"><a href="#rooms">客室</a><a href="#story">湯</a><a href="#access">アクセス</a></nav>
+    <span class="right">MATSUKAZE ONSEN / 全8室</span>
+  </div>
+</header>
+
+<section class="hero">
+  <svg class="mountains" viewBox="0 0 600 200" aria-hidden="true"><path d="M0 200 120 60l70 70 90-100 110 120 70-60 140 110Z" fill="#1b1712" opacity=".55"/><path d="M0 200 90 110l80 60 100-70 120 80 90-40 120 60Z" fill="#1b1712" opacity=".35"/></svg>
+  <div class="wrap">
+    <p class="k">WINTER / QUIET WATER</p>
+    <h1>冬の湯は、<br>静かに。</h1>
+    <p class="sub">全8室。部屋ごとに湯の温度が違います。</p>
+  </div>
+</section>
+
+<section class="book" id="rooms">
+  <div class="wrap">
+    <div class="b-row">
+      <div class="field">
+        <label>宿泊日</label>
+        <div class="dates" id="dates" role="group" aria-label="宿泊日を選ぶ"></div>
+      </div>
+      <div class="field">
+        <label>泊数</label>
+        <div class="guests">
+          <button type="button" id="minus" aria-label="泊数を減らす">−</button>
+          <span id="nights">1 泊</span>
+          <button type="button" id="plus" aria-label="泊数を増やす">＋</button>
+        </div>
+      </div>
+      <div class="field">
+        <label>人数</label>
+        <div class="guests">
+          <button type="button" id="pminus" aria-label="人数を減らす">−</button>
+          <span id="people">2 名</span>
+          <button type="button" id="pplus" aria-label="人数を増やす">＋</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="rooms" role="group" aria-label="客室を選ぶ">
+      <button class="room" type="button" data-i="0" aria-pressed="true"><span class="img"></span><span class="body"><h3>山側 / 8畳</h3><p>岩の露天あり。静かな部屋。</p><span class="price"><b>¥24,000</b> / 1泊2名</span></span></button>
+      <button class="room" type="button" data-i="1" aria-pressed="false"><span class="img"></span><span class="body"><h3>川側 / 10畳</h3><p>水音の聞こえる縁側つき。</p><span class="price"><b>¥29,000</b> / 1泊2名</span></span></button>
+      <button class="room" type="button" data-i="2" aria-pressed="false"><span class="img"></span><span class="body"><h3>離れ / 12畳</h3><p>内湯と露天、両方あり。</p><span class="price"><b>¥38,000</b> / 1泊2名</span></span></button>
+    </div>
+
+    <div class="total">
+      <div class="sum">合計（サンプル） <b id="sum">¥24,000</b><span id="detail" style="display:block;font-size:11px;color:#8b8172">11月20日・1泊・2名</span></div>
+      <div class="cta"><button class="btn" type="button" id="confirm">空室を確認する</button></div>
+    </div>
+    <p class="note" id="msg">※この画面は予約デモです。送信・確保・決済は行いません。料金は架空です。</p>
+  </div>
+</section>
+
+<section class="story" id="story">
+  <div class="wrap story-top">
+    <div>
+      <h2>熱すぎない湯を、<br>長く。</h2>
+      <p>源泉は41度。加水せず、季節で湯口の量を変えています。冬は少しぬるくして、長く入れるように。部屋ごとに温度が違うのは、そのためです。</p>
+    </div>
+    <div class="fig"></div>
+  </div>
+  <div class="wrap">
+    <div class="three">
+      <div><b>夕食</b><p>地のものだけ。18時と19時半の2回、部屋か個室で。</p></div>
+      <div><b>朝</b><p>6時から湯に入れます。朝食は7時半から。</p></div>
+      <div><b>送迎</b><p>最寄り駅から1日3便。事前にご連絡ください（サンプル）。</p></div>
+    </div>
+  </div>
+</section>
+
+<footer id="access">
+  <div class="wrap"><span>湯の宿 まつかぜ / sample inn site</span><span>宿名・料金・日付は架空です。予約・決済はありません。</span></div>
+</footer>
+
+<script>
+(function(){
+  var dates = ['11月20日','11月21日','11月22日','11月23日','11月24日'];
+  var rooms = [
+    {n:'山側 / 8畳', p:24000},
+    {n:'川側 / 10畳', p:29000},
+    {n:'離れ / 12畳', p:38000}
+  ];
+  var st = {date:0, nights:1, people:2, room:0};
+  var box = document.getElementById('dates');
+  dates.forEach(function(d, i){
+    var b = document.createElement('button');
+    b.type = 'button'; b.className = 'd'; b.innerHTML = d + '<small>空室あり</small>';
+    b.setAttribute('aria-pressed', String(i === 0));
+    b.addEventListener('click', function(){
+      st.date = i;
+      Array.prototype.forEach.call(box.children, function(o){ o.setAttribute('aria-pressed', String(o === b)); });
+      paint();
+    });
+    box.appendChild(b);
+  });
+
+  function paint(){
+    var r = rooms[st.room];
+    var total = r.p * st.nights * (st.people / 2);
+    document.getElementById('sum').textContent = '¥' + Math.round(total).toLocaleString('ja-JP');
+    document.getElementById('detail').textContent = dates[st.date] + '・' + st.nights + '泊・' + st.people + '名';
+    document.getElementById('nights').textContent = st.nights + ' 泊';
+    document.getElementById('people').textContent = st.people + ' 名';
+    document.getElementById('msg').textContent = '※' + r.n + 'を選択中。この画面は予約デモで、送信・確保・決済は行いません。';
+  }
+  document.getElementById('plus').addEventListener('click', function(){ if (st.nights < 4) { st.nights++; paint(); } });
+  document.getElementById('minus').addEventListener('click', function(){ if (st.nights > 1) { st.nights--; paint(); } });
+  document.getElementById('pplus').addEventListener('click', function(){ if (st.people < 6) { st.people++; paint(); } });
+  document.getElementById('pminus').addEventListener('click', function(){ if (st.people > 1) { st.people--; paint(); } });
+
+  var roomBtns = Array.prototype.slice.call(document.querySelectorAll('.room'));
+  roomBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      st.room = Number(b.dataset.i);
+      roomBtns.forEach(function(o){ o.setAttribute('aria-pressed', String(o === b)); });
+      paint();
+    });
+  });
+  document.getElementById('confirm').addEventListener('click', function(){
+    document.getElementById('msg').textContent = '空室を確認しました（デモ）。' + dates[st.date] + '・' + st.nights + '泊・' + st.people + '名・' + rooms[st.room].n + '。予約は確定していません。';
+  });
+})();
+</script>
+</body>
+</html>

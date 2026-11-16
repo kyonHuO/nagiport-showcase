@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#f4f2ed">
+<title>lattice — かたちは、会話で決まる。</title>
+<style>
+html,body{background:#f4f2ed}
+*{box-sizing:border-box}
+body{margin:0;color:#151412;font:15px/1.7 -apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+:focus-visible{outline:2px solid #151412;outline-offset:3px}
+.wrap{max-width:1240px;margin:0 auto;padding:0 32px}
+header.top{position:sticky;top:0;z-index:20;background:#f4f2edee;backdrop-filter:blur(10px);border-bottom:1px solid #dedad2}
+.top .wrap{display:flex;align-items:center;gap:34px;height:66px}
+.brand{font-weight:700;font-size:20px;letter-spacing:-.05em;display:flex;align-items:center;gap:8px}
+.brand i{width:16px;height:16px;background:#ff4d2e;border-radius:3px;display:block;box-shadow:6px 0 0 #2f5bea,12px 0 0 #ffc800}
+nav.main{display:flex;gap:26px;font-size:13px;color:#514d46}
+nav.main a:hover{color:#151412}
+.top .right{margin-left:auto;display:flex;align-items:center;gap:16px;font-size:13px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:999px;padding:11px 20px;font-size:13px;font-weight:600;border:1px solid #151412;transition:transform .18s ease,background .18s ease,color .18s ease}
+.btn.solid{background:#151412;color:#f7f5f0}
+.btn.solid:hover{transform:translateY(-1px);background:#2c2a26}
+.btn.ghost:hover{background:#151412;color:#f7f5f0}
+.hero .wrap{display:grid;grid-template-columns:1.02fr 1fr;gap:56px;align-items:center;padding-top:56px;padding-bottom:20px}
+.eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#7a746a;display:flex;align-items:center;gap:9px}
+.eyebrow b{width:26px;height:1px;background:#151412;display:block}
+h1{font-size:clamp(40px,5.4vw,72px);line-height:1.12;letter-spacing:-.055em;font-weight:700;margin:20px 0 22px}
+h1 em{font-style:normal;position:relative;white-space:nowrap}
+h1 em:after{content:"";position:absolute;left:-2px;right:-2px;bottom:6px;height:14px;background:#ffc800;z-index:-1;transform:rotate(-.8deg)}
+.lede{font-size:15px;color:#57524a;max-width:430px;line-height:1.95}
+.cta{display:flex;gap:12px;margin-top:30px;flex-wrap:wrap}
+.meta{display:flex;gap:30px;margin-top:38px;font-size:12px;color:#7a746a;flex-wrap:wrap}
+.meta b{display:block;color:#151412;font-size:19px;letter-spacing:-.03em}
+
+/* canvas */
+.canvas{border:1px solid #d6d1c8;background:#fffefb;border-radius:14px;overflow:hidden;box-shadow:0 26px 60px -38px #1a171233,0 2px 0 #fff inset}
+.canvas-bar{display:flex;align-items:center;gap:10px;padding:10px 12px;border-bottom:1px solid #e4e0d8;background:#faf8f4}
+.dots{display:flex;gap:5px}
+.dots i{width:9px;height:9px;border-radius:50%;background:#dcd7cc;display:block}
+.dots i:first-child{background:#ff6a4d}.dots i:nth-child(2){background:#ffc800}.dots i:nth-child(3){background:#37b26a}
+.tab{font-size:11px;color:#6b655b;padding:4px 10px;border-radius:6px;background:#efebe3}
+.spacer{flex:1}
+.avatars{display:flex}
+.avatars span{width:22px;height:22px;border-radius:50%;border:2px solid #fffefb;margin-left:-7px;font-size:9px;display:grid;place-items:center;color:#141312;font-weight:700}
+.avatars span:nth-child(1){background:#ffd9a8}.avatars span:nth-child(2){background:#bcd4ff}.avatars span:nth-child(3){background:#c6f2d4}
+.canvas-body{display:grid;grid-template-columns:132px 1fr}
+.layers{border-right:1px solid #e4e0d8;padding:12px 8px;background:#fbf9f5;font-size:11px}
+.layers h4{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#8d867a;margin:2px 8px 8px;font-weight:600}
+.layer{display:flex;align-items:center;gap:7px;width:100%;text-align:left;padding:7px 8px;border-radius:6px;color:#4b463e}
+.layer:hover{background:#f0ece4}
+.layer[aria-pressed=true]{background:#151412;color:#f7f5f0}
+.layer s{width:11px;height:11px;border-radius:2px;flex:none;text-decoration:none}
+.artboard{position:relative;aspect-ratio:1.18;background:
+  linear-gradient(#00000006 1px,transparent 1px) 0 0/18px 18px,
+  linear-gradient(90deg,#00000006 1px,transparent 1px) 0 0/18px 18px,#fffefb;
+  overflow:hidden}
+.shape{position:absolute;transition:box-shadow .2s ease,transform .3s ease;cursor:pointer}
+.shape.on{box-shadow:0 0 0 2px #2f5bea,0 0 0 6px #2f5bea22}
+.s1{left:8%;top:12%;width:40%;height:44%;background:var(--c1,#ff4d2e);border-radius:10px}
+.s2{right:9%;top:22%;width:28%;height:28%;background:var(--c2,#2f5bea);border-radius:50%}
+.s3{left:20%;bottom:10%;width:34%;height:26%;background:var(--c3,#ffc800);border-radius:44% 56% 60% 40%/50% 44% 56% 50%}
+.s4{right:12%;bottom:16%;width:22%;height:16%;background:#151412;border-radius:4px;transform:rotate(-8deg)}
+.tag{position:absolute;font-size:10px;background:#151412;color:#fff;padding:3px 7px;border-radius:4px;letter-spacing:.02em}
+.tag.t1{left:8%;top:8%}.tag.t2{right:9%;top:18%}
+.inspect{border-top:1px solid #e4e0d8;display:flex;align-items:center;gap:14px;padding:11px 13px;font-size:11px;background:#fbf9f5;flex-wrap:wrap}
+.inspect b{font-weight:600}
+.swatches{display:flex;gap:6px;margin-left:auto}
+.sw{width:20px;height:20px;border-radius:50%;border:2px solid #fffefb;box-shadow:0 0 0 1px #d8d3c8}
+.sw[aria-pressed=true]{box-shadow:0 0 0 2px #151412}
+
+section{padding:76px 0}
+.h2{font-size:clamp(28px,3.4vw,40px);line-height:1.24;letter-spacing:-.045em;margin:0 0 14px;font-weight:700}
+.sub{color:#5d584f;max-width:560px;line-height:1.9;font-size:14px}
+.features{border-top:1px solid #dedad2;padding-top:14px;display:grid;grid-template-columns:repeat(3,1fr);gap:0}
+.feature{padding:26px 26px 8px 0;border-right:1px solid #dedad2}
+.feature:last-child{border-right:0;padding-right:0}
+.feature .n{font-size:11px;color:#8d867a;letter-spacing:.1em}
+.feature h3{font-size:19px;letter-spacing:-.03em;margin:12px 0 8px}
+.feature p{font-size:13px;color:#5d584f;margin:0;line-height:1.85}
+.quote{border-top:1px solid #dedad2;border-bottom:1px solid #dedad2;background:#fbf9f5}
+.quote .wrap{display:grid;grid-template-columns:1fr 1.1fr;gap:50px;align-items:center;padding-top:54px;padding-bottom:54px}
+.quote blockquote{margin:0;font-size:clamp(20px,2.4vw,27px);line-height:1.6;letter-spacing:-.03em}
+.quote p{font-size:12px;color:#7a746a;margin-top:16px}
+.stat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:#dedad2;border:1px solid #dedad2}
+.stat{background:#fffefb;padding:20px}
+.stat b{display:block;font-size:26px;letter-spacing:-.04em}
+.stat span{font-size:11px;color:#7a746a}
+footer{border-top:1px solid #dedad2;padding:34px 0 44px;font-size:12px;color:#7a746a}
+footer .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
+footer nav{display:flex;gap:18px;flex-wrap:wrap}
+.note{font-size:11px;color:#8d867a;margin-top:12px}
+@media(max-width:960px){
+ .hero .wrap{grid-template-columns:1fr;gap:38px;padding-top:44px}
+ .features{grid-template-columns:1fr}
+ .feature{border-right:0;border-bottom:1px solid #dedad2;padding:22px 0}
+ .feature:last-child{border-bottom:0}
+ .quote .wrap{grid-template-columns:1fr;gap:26px}
+ nav.main{display:none}
+}
+@media(max-width:560px){
+ .wrap{padding:0 20px}
+ .canvas-body{grid-template-columns:104px 1fr}
+ .layers{font-size:10px}
+ .top .right .btn.ghost{display:none}
+ .cta .btn{flex:1 1 auto}
+ .stat-grid{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){
+ *{transition-duration:.01ms!important;animation-duration:.01ms!important;animation-iteration-count:1!important}
+ html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#"><i aria-hidden="true"></i>lattice</a>
+    <nav class="main" aria-label="メインメニュー">
+      <a href="#canvas">キャンバス</a><a href="#how">使い方</a><a href="#plans">料金</a>
+    </nav>
+    <div class="right">
+      <a href="#canvas" style="color:#514d46">ログイン</a>
+      <a class="btn solid" href="#canvas">無料で試す</a>
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <p class="eyebrow"><b aria-hidden="true"></b>design, together</p>
+      <h1>かたちは、<br><em>会話</em>で決まる。</h1>
+      <p class="lede">同じキャンバスを、同じ速度で。<br>色・余白・文字をその場で直しながら、チームの合意まで一気に進めます。</p>
+      <div class="cta">
+        <a class="btn solid" href="#canvas">キャンバスを触る</a>
+        <a class="btn ghost" href="#how">3分でわかる使い方</a>
+      </div>
+      <div class="meta">
+        <div><b>0.4 秒</b>共同編集の反映</div>
+        <div><b>12 種類</b>のレイアウト部品</div>
+        <div><b>ブラウザ</b>だけで完結</div>
+      </div>
+    </div>
+
+    <div class="canvas" id="canvas">
+      <div class="canvas-bar">
+        <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span class="tab">はじめてのボード</span>
+        <span class="spacer"></span>
+        <span class="avatars" aria-label="閲覧中のメンバー"><span>甲</span><span>乙</span><span>丙</span></span>
+      </div>
+      <div class="canvas-body">
+        <div class="layers">
+          <h4>レイヤー</h4>
+          <button class="layer" type="button" data-key="s1" aria-pressed="true"><s style="background:#ff4d2e"></s>面</button>
+          <button class="layer" type="button" data-key="s2" aria-pressed="false"><s style="background:#2f5bea;border-radius:50%"></s>円</button>
+          <button class="layer" type="button" data-key="s3" aria-pressed="false"><s style="background:#ffc800;border-radius:50% 30% 50% 30%"></s>かたち</button>
+          <button class="layer" type="button" data-key="s4" aria-pressed="false"><s style="background:#151412"></s>ラベル</button>
+        </div>
+        <div class="artboard" id="artboard">
+          <span class="tag t1">進行中</span>
+          <span class="tag t2">案 B</span>
+          <div class="shape s1 on" data-key="s1" tabindex="0" role="button" aria-label="面の図形を選択"></div>
+          <div class="shape s2" data-key="s2" tabindex="0" role="button" aria-label="円の図形を選択"></div>
+          <div class="shape s3" data-key="s3" tabindex="0" role="button" aria-label="かたちの図形を選択"></div>
+          <div class="shape s4" data-key="s4" tabindex="0" role="button" aria-label="ラベルの図形を選択"></div>
+        </div>
+      </div>
+      <div class="inspect">
+        <span>選択中 <b id="pickName">面</b></span>
+        <span style="color:#8d867a" id="pickSize">240 × 158</span>
+        <span class="swatches" role="group" aria-label="選択中の色">
+          <button class="sw" type="button" data-color="#ff4d2e" style="background:#ff4d2e" aria-label="朱色" aria-pressed="true"></button>
+          <button class="sw" type="button" data-color="#2f5bea" style="background:#2f5bea" aria-label="青" aria-pressed="false"></button>
+          <button class="sw" type="button" data-color="#ffc800" style="background:#ffc800" aria-label="黄" aria-pressed="false"></button>
+          <button class="sw" type="button" data-color="#17b26a" style="background:#17b26a" aria-label="緑" aria-pressed="false"></button>
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="how">
+  <div class="wrap">
+    <h2 class="h2">触って、直して、<br>そのまま渡せる。</h2>
+    <p class="sub">左のレイヤーを選ぶと、キャンバス側の図形が強調されます。色を選ぶと選択中の図形だけが変わります。上のデモはこのページの中で動いています。</p>
+    <div class="features" style="margin-top:38px">
+      <article class="feature">
+        <span class="n">01 / SELECT</span>
+        <h3>選ぶだけで伝わる</h3>
+        <p>レイヤー名と図形が同じ番号でつながるので、「どれのことか」を言葉で説明しなくて済みます。</p>
+      </article>
+      <article class="feature">
+        <span class="n">02 / TOKEN</span>
+        <h3>色は一箇所で管理</h3>
+        <p>同じ色を11回コピーしない。切り替えた色は、その図形にだけ効いて他の面は保ちます。</p>
+      </article>
+      <article class="feature">
+        <span class="n">03 / HANDOFF</span>
+        <h3>余白まで引き継ぐ</h3>
+        <p>文字サイズ・行間・角丸の値がそのまま残るので、実装時に数字を探し直さずに済みます。</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="quote">
+  <div class="wrap">
+    <blockquote>「ここ、もう少し広く」が<br>1回の会話で終わる。</blockquote>
+    <div>
+      <div class="stat-grid">
+        <div class="stat"><b>-38%</b><span>確認の往復（社内試算・サンプル）</span></div>
+        <div class="stat"><b>3 案</b><span>同時に並べて比較</span></div>
+        <div class="stat"><b>自動</b><span>余白と文字の記録</span></div>
+        <div class="stat"><b>1 ファイル</b><span>書き出しはHTMLから</span></div>
+      </div>
+      <p style="font-size:11px;color:#8d867a;margin-top:14px">※数値は画面確認用のサンプルで、実績ではありません。</p>
+    </div>
+  </div>
+</section>
+
+<section id="plans">
+  <div class="wrap">
+    <h2 class="h2">小さく始めて、<br>チームで広げる。</h2>
+    <p class="sub">まずは1人で。慣れたら同じボードに招待するだけ。料金はこの試作には実装していません。</p>
+    <div class="cta" style="margin-top:26px">
+      <a class="btn solid" href="#canvas">無料で試す</a>
+      <a class="btn ghost" href="#how">機能を見る</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <strong style="color:#151412">lattice</strong>
+      <p class="note">架空のプロダクトによる画面構成の試作です。実在の企業・サービスとは関係ありません。保存・共有・課金は行いません。</p>
+    </div>
+    <nav aria-label="フッターメニュー"><a href="#canvas">キャンバス</a><a href="#how">使い方</a><a href="#plans">料金</a><a href="#top">先頭へ</a></nav>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var shapes = Array.prototype.slice.call(document.querySelectorAll('.shape'));
+  var layers = Array.prototype.slice.call(document.querySelectorAll('.layer'));
+  var names = {s1:'面',s2:'円',s3:'かたち',s4:'ラベル'};
+  var sizes = {s1:'240 × 158',s2:'126 × 126',s3:'168 × 118',s4:'96 × 58'};
+  var current = 's1';
+
+  function pick(key){
+    current = key;
+    shapes.forEach(function(el){ el.classList.toggle('on', el.dataset.key === key); });
+    layers.forEach(function(el){ el.setAttribute('aria-pressed', String(el.dataset.key === key)); });
+    document.getElementById('pickName').textContent = names[key];
+    document.getElementById('pickSize').textContent = sizes[key];
+    var sw = document.querySelector('.sw[aria-pressed="true"]');
+    if (sw) sw.setAttribute('aria-pressed','false');
+  }
+
+  layers.forEach(function(btn){
+    btn.addEventListener('click', function(){ pick(btn.dataset.key); });
+  });
+  shapes.forEach(function(el){
+    el.addEventListener('click', function(){ pick(el.dataset.key); });
+    el.addEventListener('keydown', function(e){
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pick(el.dataset.key); }
+    });
+  });
+
+  var target = document.querySelectorAll('.shape')[0];
+  document.querySelectorAll('.sw').forEach(function(sw){
+    sw.addEventListener('click', function(){
+      document.querySelectorAll('.sw').forEach(function(o){ o.setAttribute('aria-pressed', String(o === sw)); });
+      var el = document.querySelector('.shape[data-key="' + current + '"]');
+      if (el) el.style.background = sw.dataset.color;
+      var layer = document.querySelector('.layer[data-key="' + current + '"] s');
+      if (layer) layer.style.background = sw.dataset.color;
+    });
+  });
+})();
+</script>
+</body>
+</html>

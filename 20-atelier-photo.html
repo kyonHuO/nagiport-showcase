@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#14120f">
+<title>ATELIER — 光の当たる場所を、待つ。</title>
+<style>
+html,body{background:#14120f}
+*{box-sizing:border-box}
+body{margin:0;color:#ece6da;font:15px/1.75 "Hiragino Sans","Yu Gothic",-apple-system,sans-serif}
+a{color:inherit;text-decoration:none}button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+:focus-visible{outline:2px solid #d8c39a;outline-offset:3px}
+.wrap{max-width:1240px;margin:0 auto;padding:0 34px}
+header{position:sticky;top:0;z-index:20;background:#14120fed;backdrop-filter:blur(10px)}
+header .wrap{display:flex;align-items:center;height:72px;gap:32px;border-bottom:1px solid #2b2721}
+.brand{font-size:16px;letter-spacing:.34em;font-weight:500}
+nav{display:flex;gap:24px;font-size:11.5px;letter-spacing:.06em;color:#9a9184}
+nav a:hover{color:#ece6da}
+.right{margin-left:auto;font-size:11px;letter-spacing:.08em;color:#9a9184}
+
+.hero{padding:60px 0 30px}
+.hero .hero-top{display:grid;grid-template-columns:1.2fr .8fr;gap:46px;align-items:end}
+h1{font-size:clamp(32px,4.6vw,58px);line-height:1.26;letter-spacing:-.03em;font-weight:400;margin:0}
+h1 small{display:block;font-size:10.5px;letter-spacing:.26em;color:#9a9184;margin-bottom:18px;font-weight:500}
+.hero p{margin:18px 0 0;font-size:12.5px;color:#9a9184;max-width:380px;line-height:2}
+.index{font:10.5px/2 ui-monospace,Menlo,monospace;color:#9a9184;text-align:right;border-left:1px solid #2b2721;padding-left:18px}
+.index b{color:#ece6da;display:block;letter-spacing:.06em}
+
+.toolbar{display:flex;justify-content:space-between;align-items:center;gap:16px;border-top:1px solid #2b2721;padding:14px 0;margin-top:34px;flex-wrap:wrap}
+.filters{display:flex;gap:6px;flex-wrap:wrap}
+.f{border:1px solid #34302a;border-radius:999px;padding:5px 12px;font-size:11px;color:#9a9184;letter-spacing:.04em;transition:color .15s ease,border-color .15s ease,background .15s ease}
+.f:hover{border-color:#6b6357;color:#ece6da}
+.f[aria-pressed=true]{background:#ece6da;border-color:#ece6da;color:#14120f}
+.view{display:flex;gap:5px;align-items:center;font:10px/1 ui-monospace,Menlo,monospace;color:#776f63;letter-spacing:.1em}
+.view button{border:1px solid #34302a;padding:5px 8px;color:#9a9184;font-size:10px}
+.view button[aria-pressed=true]{border-color:#d8c39a;color:#d8c39a}
+
+.gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding-bottom:16px}
+.gallery.wide{grid-template-columns:repeat(2,1fr)}
+.shot{position:relative;aspect-ratio:4/5;overflow:hidden;background:#1e1b17;padding:0;text-align:left;transition:filter .2s ease}
+.shot[hidden]{display:none}
+.shot .art{position:absolute;inset:0;transition:transform .5s cubic-bezier(.22,.61,.36,1)}
+.shot:hover .art{transform:scale(1.03)}
+.shot:after{content:"";position:absolute;inset:0;background:linear-gradient(to top,#14120fcc,transparent 62%)}
+.shot .cap{position:absolute;left:11px;right:11px;bottom:9px;z-index:2;font-size:10.5px;color:#e6dfd2;letter-spacing:.02em;line-height:1.5}
+.shot .cap b{display:block;font-weight:500;font-size:11.5px;margin-bottom:1px}
+.shot .no{position:absolute;top:9px;left:11px;z-index:2;font:9px/1 ui-monospace,Menlo,monospace;color:#ffffffb3;letter-spacing:.1em}
+.gallery.wide .shot{aspect-ratio:16/10}
+.s1 .art{background:linear-gradient(155deg,#2a2118,#6b4a26 55%,#d9a45e)}
+.s2 .art{background:linear-gradient(200deg,#161c22,#2b4356 55%,#8fb4c4)}
+.s3 .art{background:linear-gradient(160deg,#241a20,#4b2c3c 55%,#c48b9e)}
+.s4 .art{background:linear-gradient(150deg,#1b1e18,#38432f 55%,#a2b184)}
+.s5 .art{background:linear-gradient(190deg,#221a15,#5a3527 55%,#c9835e)}
+.s6 .art{background:linear-gradient(140deg,#17171a,#33343d 58%,#9598a8)}
+.s7 .art{background:linear-gradient(170deg,#1e1c17,#4a4232 55%,#c0ad82)}
+.s8 .art{background:linear-gradient(200deg,#1a1f1c,#2f473e 55%,#86ab99)}
+
+.detail{display:grid;grid-template-columns:1fr 1.4fr;gap:30px;border-top:1px solid #2b2721;border-bottom:1px solid #2b2721;padding:24px 0;align-items:center}
+.thumb{aspect-ratio:16/10;position:relative;overflow:hidden;background:#1e1b17}
+.thumb .art{position:absolute;inset:0}
+.detail h2{font-size:clamp(19px,2.4vw,26px);font-weight:400;margin:0 0 8px;letter-spacing:-.02em}
+.detail p{font-size:12px;color:#9a9184;margin:0;line-height:1.9}
+.detail .meta{margin-top:12px;font:10px/1.8 ui-monospace,Menlo,monospace;color:#776f63;letter-spacing:.06em}
+footer{padding:26px 0 40px;font-size:10px;color:#776f63;letter-spacing:.05em}
+footer .wrap{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap}
+@media(max-width:980px){
+ .hero .wrap{grid-template-columns:1fr;gap:24px}
+ .index{text-align:left;border-left:0;padding-left:0;border-top:1px solid #2b2721;padding-top:14px}
+ .gallery{grid-template-columns:repeat(2,1fr)}
+ .detail{grid-template-columns:1fr;gap:16px}
+ nav{display:none}
+}
+@media(max-width:560px){
+ .wrap{padding:0 20px}
+ .gallery{gap:6px}
+ .gallery.wide{grid-template-columns:1fr}
+ .shot .cap{font-size:9.5px;left:8px;right:8px}
+}
+@media(prefers-reduced-motion:reduce){*{transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="brand" href="#">ATELIER</a>
+    <nav aria-label="メインメニュー"><a href="#gallery">作品</a><a href="#about">撮影</a><a href="#contact">連絡</a></nav>
+    <span class="right">PHOTOGRAPHY / SAMPLE</span>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <div class="wrap hero-top">
+    <div>
+      <h1><small>ATELIER KAMURA</small>光の当たる場所を、<br>待つ。</h1>
+      <p>場所と時間を決めて、あとは待つだけ。撮る枚数より、立つ位置を選ぶ仕事です。商業・記録・展示の3つの仕事をしています。</p>
+    </div>
+    <div class="index">SERIES<b>4 SERIES / 8 PRINTS</b>2023 — 2026<br>35mm ・ 120 ・ デジタル</div>
+  </div>
+
+  <div class="wrap">
+    <div class="toolbar">
+      <div class="filters" role="group" aria-label="シリーズで絞り込む">
+        <button class="f" type="button" data-f="all" aria-pressed="true">すべて</button>
+        <button class="f" type="button" data-f="屋内" aria-pressed="false">屋内</button>
+        <button class="f" type="button" data-f="屋外" aria-pressed="false">屋外</button>
+        <button class="f" type="button" data-f="静物" aria-pressed="false">静物</button>
+      </div>
+      <div class="view"><span>表示</span><button type="button" id="g4" aria-pressed="true">4列</button><button type="button" id="g2" aria-pressed="false">2列</button></div>
+    </div>
+
+    <div class="gallery" id="gallery">
+      <button class="shot s1" type="button" data-k="0" data-tag="屋内"><span class="no">01</span><span class="art"></span><span class="cap"><b>朝の台所</b>宮城 / 2025</span></button>
+      <button class="shot s2" type="button" data-k="1" data-tag="屋外"><span class="no">02</span><span class="art"></span><span class="cap"><b>防波堤の朝</b>岩手 / 2025</span></button>
+      <button class="shot s3" type="button" data-k="2" data-tag="静物"><span class="no">03</span><span class="art"></span><span class="cap"><b>布と影</b>東京 / 2024</span></button>
+      <button class="shot s4" type="button" data-k="3" data-tag="屋外"><span class="no">04</span><span class="art"></span><span class="cap"><b>畦の風</b>山形 / 2024</span></button>
+      <button class="shot s5" type="button" data-k="4" data-tag="屋内"><span class="no">05</span><span class="art"></span><span class="cap"><b>窯の前</b>栃木 / 2024</span></button>
+      <button class="shot s6" type="button" data-k="5" data-tag="静物"><span class="no">06</span><span class="art"></span><span class="cap"><b>道具の並び</b>東京 / 2023</span></button>
+      <button class="shot s7" type="button" data-k="6" data-tag="屋内"><span class="no">07</span><span class="art"></span><span class="cap"><b>午後の窓</b>福島 / 2023</span></button>
+      <button class="shot s8" type="button" data-k="7" data-tag="屋外"><span class="no">08</span><span class="art"></span><span class="cap"><b>川面の反射</b>新潟 / 2023</span></button>
+    </div>
+
+    <div class="detail" id="detail">
+      <div class="thumb"><span class="art s1" id="bigArt"></span></div>
+      <div>
+        <h2 id="dTitle">朝の台所</h2>
+        <p id="dText">朝6時、窓から入る光が止まる場所を決めて、そこに椅子を置いてもらいました。撮影は15分だけ。</p>
+        <div class="meta" id="dMeta">SERIES 01 / 屋内 — 宮城 / 2025 / 35mm</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about" style="padding:40px 0">
+  <div class="wrap" style="display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap;font-size:12px;color:#9a9184">
+    <div style="max-width:420px"><b style="color:#ece6da;display:block;margin-bottom:6px;font-size:13px">撮影の考え方</b>光は待つもの。機材より、立つ位置。商業撮影でも同じで、まず空間を1周します。</div>
+    <div style="max-width:260px"><b style="color:#ece6da;display:block;margin-bottom:6px;font-size:13px">対応</b>商品・空間・記録・展示。1日単位から。この試作に送信機能はありません。</div>
+  </div>
+</section>
+</main>
+
+<footer id="contact">
+  <div class="wrap"><span>ATELIER KAMURA / sample site</span><span>写真・作品名・地名は架空のサンプルです。画像は自作のグラデーションです。</span></div>
+</footer>
+
+<script>
+(function(){
+  var shots = Array.prototype.slice.call(document.querySelectorAll('.shot'));
+  var filters = Array.prototype.slice.call(document.querySelectorAll('.f'));
+  var data = [
+    {t:'朝の台所', d:'朝6時、窓から入る光が止まる場所を決めて、そこに椅子を置いてもらいました。撮影は15分だけ。', m:'SERIES 01 / 屋内 — 宮城 / 2025 / 35mm', cls:'s1'},
+    {t:'防波堤の朝', d:'波が引く10分を待ちました。三脚は使わず、手で水平を合わせています。', m:'SERIES 02 / 屋外 — 岩手 / 2025 / 120', cls:'s2'},
+    {t:'布と影', d:'布の重なりでできる影の濃さだけを見ています。色は後から決めました。', m:'SERIES 03 / 静物 — 東京 / 2024 / デジタル', cls:'s3'},
+    {t:'畦の風', d:'風が止む瞬間を待つより、風のまま撮るほうが畦らしくなりました。', m:'SERIES 02 / 屋外 — 山形 / 2024 / 35mm', cls:'s4'},
+    {t:'窯の前', d:'薪をくべる手元だけ。火の明るさに合わせて露出を決めています。', m:'SERIES 04 / 屋内 — 栃木 / 2024 / デジタル', cls:'s5'},
+    {t:'道具の並び', d:'使った順に置かれた道具を、そのまま。並べ直しはしていません。', m:'SERIES 03 / 静物 — 東京 / 2023 / 120', cls:'s6'},
+    {t:'午後の窓', d:'カーテンの向こうの明るさに合わせ、室内は少し暗く残しました。', m:'SERIES 04 / 屋内 — 福島 / 2023 / 35mm', cls:'s7'},
+    {t:'川面の反射', d:'反射が崩れる直前の1枚。水面の形は毎秒変わるので、連写で拾っています。', m:'SERIES 02 / 屋外 — 新潟 / 2023 / デジタル', cls:'s8'}
+  ];
+  var big = document.getElementById('bigArt');
+
+  function pick(i){
+    var d = data[i];
+    document.getElementById('dTitle').textContent = d.t;
+    document.getElementById('dText').textContent = d.d;
+    document.getElementById('dMeta').textContent = d.m;
+    big.className = 'art ' + d.cls;
+  }
+  shots.forEach(function(s){ s.addEventListener('click', function(){ pick(Number(s.dataset.k)); }); });
+
+  filters.forEach(function(f){
+    f.addEventListener('click', function(){
+      filters.forEach(function(o){ o.setAttribute('aria-pressed', String(o === f)); });
+      shots.forEach(function(s){
+        s.hidden = f.dataset.f !== 'all' && s.dataset.tag !== f.dataset.f;
+      });
+    });
+  });
+
+  var g = document.getElementById('gallery');
+  document.getElementById('g4').addEventListener('click', function(){
+    g.classList.remove('wide');
+    this.setAttribute('aria-pressed','true');
+    document.getElementById('g2').setAttribute('aria-pressed','false');
+  });
+  document.getElementById('g2').addEventListener('click', function(){
+    g.classList.add('wide');
+    this.setAttribute('aria-pressed','true');
+    document.getElementById('g4').setAttribute('aria-pressed','false');
+  });
+})();
+</script>
+<style>
+.thumb .art.s1{background:linear-gradient(155deg,#2a2118,#6b4a26 55%,#d9a45e)}
+.thumb .art.s2{background:linear-gradient(200deg,#161c22,#2b4356 55%,#8fb4c4)}
+.thumb .art.s3{background:linear-gradient(160deg,#241a20,#4b2c3c 55%,#c48b9e)}
+.thumb .art.s4{background:linear-gradient(150deg,#1b1e18,#38432f 55%,#a2b184)}
+.thumb .art.s5{background:linear-gradient(190deg,#221a15,#5a3527 55%,#c9835e)}
+.thumb .art.s6{background:linear-gradient(140deg,#17171a,#33343d 58%,#9598a8)}
+.thumb .art.s7{background:linear-gradient(170deg,#1e1c17,#4a4232 55%,#c0ad82)}
+.thumb .art.s8{background:linear-gradient(200deg,#1a1f1c,#2f473e 55%,#86ab99)}
+</style>
+</body>
+</html>
